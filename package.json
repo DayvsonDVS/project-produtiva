@@ -1,0 +1,23 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "nuxt": "^3.3.3"
+  },
+  "dependencies": {
+    "@cataline.io/darpi": "^1.1.11",
+    "@pinia/nuxt": "^0.4.8",
+    "bumi-components-new": "^0.0.16",
+    "normalize.css": "^8.0.1",
+    "ohmyfetch": "^0.4.21",
+    "pinia": "^2.0.34",
+    "sass": "^1.61.0"
+  }
+}

@@ -1,0 +1,9 @@
+<svg id="Grupo_1758" data-name="Grupo 1758" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38">
+  <g id="Grupo_1756" data-name="Grupo 1756">
+    <g id="Retângulo_1201" data-name="Retângulo 1201" fill="none" stroke="#838692" stroke-width="1">
+      <rect width="38" height="38" rx="13" stroke="none"/>
+      <rect x="0.5" y="0.5" width="37" height="37" rx="12.5" fill="none"/>
+    </g>
+  </g>
+  <path id="add" d="M13.931,9.833a.819.819,0,0,1-.819.819H10.653v2.458a.819.819,0,0,1-1.639,0V10.653H6.556a.819.819,0,0,1,0-1.639H9.014V6.556a.819.819,0,1,1,1.639,0V9.014h2.458A.819.819,0,0,1,13.931,9.833Z" transform="translate(19 5.094) rotate(45)" fill="#838692"/>
+</svg>
