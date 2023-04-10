@@ -81,6 +81,12 @@ async function send() {
     display: grid;
     gap: 2rem;
     .field {
+      :deep(span) {
+        font-size: 18px;
+      }
+      :deep(svg) {
+        fill: #ced1db;
+      }
       :deep(.input-container) {
         background: #1c2029;
         border-radius: 12px;

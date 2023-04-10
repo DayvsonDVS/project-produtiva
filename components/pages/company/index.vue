@@ -93,6 +93,9 @@ async function send() {
       }
     }
     .field {
+      :deep(span) {
+        font-size: 18px;
+      }
       :deep(.input-container) {
         background: #1c2029;
         border-radius: 12px;
