@@ -1,6 +1,8 @@
 <template>
-  <div class="batch">
-    <Button color="primary">Adicionar Empresa</Button>
+  <div class="batches-template">
+    <Button color="primary" @click="navigateTo('/company')"
+      >Adicionar Empresa</Button
+    >
 
     <div>
       <Button color="primary">+</Button>
@@ -10,26 +12,18 @@
     </div>
 
     <Table :columns="['ID', 'Lote', 'Status', 'Ação']" striped>
-      <Row uid="1">
-        <Column>1 </Column>
-        <Column>Janeiro - 2023 </Column>
+      <Row v-for="{ id, name, status } in batch.lots" :uid="id">
+        <Column>{{ id }} </Column>
+        <Column>{{ name }} </Column>
         <Column>
-          <div>Pendente <img src="@/svg/X-red.svg" /></div>
+          <div>
+            {{ status }}
+            <img v-if="status === 'Pendente'" src="@/svg/X-red.svg" />
+            <img v-if="status === 'Concluido'" src="@/svg/V-check.svg" />
+          </div>
         </Column>
         <Column>
           <Button color="primary">Editar</Button>
-          <Button color="success">Gerenciar</Button>
-        </Column>
-      </Row>
-
-      <Row uid="2">
-        <Column>2 </Column>
-        <Column>Fevereiro - 2023 </Column>
-        <Column>
-          <div>Concluído <img src="@/svg/V-check.svg" /></div>
-        </Column>
-        <Column
-          ><Button color="primary">Editar</Button>
           <Button color="success">Gerenciar</Button>
         </Column>
       </Row>
@@ -40,6 +34,9 @@
 <script setup lang="ts">
 import { Button, Table, Column, Row } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
+import { useBatch } from '@/stores/batch'
+
+const batch = useBatch()
 
 const form = darpi.newForm({
   search: darpi.string().required()
@@ -47,7 +44,7 @@ const form = darpi.newForm({
 </script>
 
 <style scoped lang="scss">
-.batch {
+.batches-template {
   display: grid;
   align-items: center;
   justify-content: center;

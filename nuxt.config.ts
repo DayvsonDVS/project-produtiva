@@ -1,10 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: true,
+  app: {
+    head: {
+      title: 'Produtiva XML'
+    }
+  },
   css: [
     'normalize.css',
     '@cataline.io/darpi/dist/style.css',
     '@/assets/scss/main.scss'
   ],
+  build: {
+    transpile: ['@cataline.io/darpi']
+  },
+  modules: ['@pinia/nuxt'],
   vite: {
     css: {
       preprocessorOptions: {
@@ -14,11 +24,6 @@ export default defineNuxtConfig({
       }
     }
   },
-
-  build: {
-    transpile: ['@cataline.io/darpi']
-  },
-  modules: ['@pinia/nuxt'],
   components: [{ path: '@/components', pathPrefix: false }],
   dir: {
     pages: 'components/pages'

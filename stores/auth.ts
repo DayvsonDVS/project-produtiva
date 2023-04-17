@@ -16,7 +16,7 @@ export const useAuth = defineStore('auth', {
         maxAge: 60 * 60 * 24 * 30 // 30 days
       })
 
-      const data = await useRequest('/auth', {
+      const data = await useRequest('/logins', {
         method: 'post',
         body: payload
       })

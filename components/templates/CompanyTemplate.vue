@@ -36,7 +36,7 @@ form.values.watch('searchable', (value) => {
 })
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
 .company-template {
   width: 900px;
   display: grid;
