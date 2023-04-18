@@ -38,7 +38,7 @@ form.values.watch('searchable', (value) => {
 
 <style scoped lang="scss">
 .company-template {
-  width: 900px;
+  margin-top: 50px;
   display: grid;
   align-items: center;
   justify-content: center;

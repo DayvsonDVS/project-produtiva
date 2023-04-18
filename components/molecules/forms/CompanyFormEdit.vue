@@ -1,5 +1,5 @@
 <template>
-  <Form class="company-form" :form="form" @submit="send">
+  <Form class="company-form-edit" :values="company" :form="form" @submit="send">
     <Field
       label="Razão Social"
       name="name"
@@ -13,7 +13,6 @@
         placeholder="00.000.000/0000-00"
         mask="99.999.999/9999-99"
       />
-
       <Field
         label="Data do Contrato"
         name="contract_date"
@@ -22,7 +21,7 @@
       />
     </div>
 
-    <Button type="submit" :disabled="form.loading"> Cadastrar </Button>
+    <Button type="submit" :disabled="form.loading"> Atualizar </Button>
   </Form>
 </template>
 
@@ -33,7 +32,11 @@ import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useCompany } from '@/stores/company'
 
 const hasError = useState(() => false)
-const company = useCompany()
+const companyStore = useCompany()
+
+const company = computed(() => {
+  return companyStore.company
+})
 
 const form = darpi.newForm({
   name: darpi.string().required(),
@@ -46,7 +49,7 @@ async function send() {
     form.loading = true
     hasError.value = false
 
-    await company.create(form.values.all)
+    await companyStore.update(form.values.all)
 
     navigateTo('/company/')
   } catch {
@@ -58,7 +61,7 @@ async function send() {
 </script>
 
 <style scoped lang="scss">
-.company-form {
+.company-form-edit {
   display: grid;
   gap: 2rem;
   :deep(:nth-child(1)) {
