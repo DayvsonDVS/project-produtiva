@@ -31,9 +31,10 @@ import 'bumi-components-new/dist/style.css'
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useCompany } from '@/stores/company'
+import { useValidateDate } from '~/composables/useValidateDate'
 
 const hasError = useState(() => false)
-const company = useCompany()
+const companyStore = useCompany()
 
 const form = darpi.newForm({
   name: darpi.string().required(),
@@ -46,9 +47,15 @@ async function send() {
     form.loading = true
     hasError.value = false
 
-    await company.create(form.values.all)
+    if (!useValidateCNPJ(form.values.all.cnpj)) {
+      alert('CNPJ inválido')
+    } else if (useValidateDate(form.values.all.contract_date.toString())) {
+      alert('Data incorreta')
+    } else {
+      await companyStore.create(form.values.all)
 
-    navigateTo('/company/')
+      navigateTo('/company/')
+    }
   } catch {
     hasError.value = true
   } finally {

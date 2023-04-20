@@ -1,10 +1,6 @@
 <template>
   <div class="company-template">
-    <div class="header">
-      <h2>Pesquisar empresa</h2>
-
-      <img src="@/svg/Close-Button.svg" @click="navigateTo('/')" />
-    </div>
+    <Header title="Pesquisar Empresa" route="/" />
 
     <Form class="search-form" :form="form">
       <Button color="primary" @click="navigateTo('/company/create')">+</Button>
@@ -45,14 +41,6 @@ form.values.watch('searchable', (value) => {
   color: #ced1db;
   gap: 2rem;
   grid-auto-flow: row;
-  .header {
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: space-between;
-    img {
-      cursor: pointer;
-    }
-  }
   form {
     display: grid;
     grid-template-columns: 1rem 1fr;

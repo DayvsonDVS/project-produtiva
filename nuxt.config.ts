@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     'normalize.css',
     '@cataline.io/darpi/dist/style.css',
     '@/assets/scss/main.scss',
-    'bumi-components-new/dist/style.css'
+    'bumi-components-new/dist/style.css',
+    'tippy.js/dist/tippy.css'
   ],
   build: {
     transpile: ['@cataline.io/darpi']

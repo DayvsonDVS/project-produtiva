@@ -49,9 +49,15 @@ async function send() {
     form.loading = true
     hasError.value = false
 
-    await companyStore.update(form.values.all)
+    if (!useValidateCNPJ(form.values.all.cnpj)) {
+      alert('CNPJ inválido')
+    } else if (useValidateDate(form.values.all.contract_date.toString())) {
+      alert('Data incorreta')
+    } else {
+      await companyStore.update(form.values.all)
 
-    navigateTo('/company/')
+      navigateTo('/company/')
+    }
   } catch {
     hasError.value = true
   } finally {
