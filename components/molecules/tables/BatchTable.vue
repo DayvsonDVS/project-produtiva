@@ -6,13 +6,15 @@
         <Column>{{ name }} </Column>
         <Column>
           <div class="status">
-            {{ status == 1 ? 'Concluído' : 'Pendente' }}
-            <img v-if="status == 0" src="@/svg/X-red.svg" />
-            <img v-if="status == 1" src="@/svg/V-check.svg" />
+            {{ status == true ? 'Concluído' : 'Pendente' }}
+            <img v-if="status == false" src="@/svg/X-red.svg" />
+            <img v-if="status == true" src="@/svg/V-check.svg" />
           </div>
         </Column>
         <Column>
-          <Button color="primary">Editar</Button>
+          <Button color="primary" @click="navigateTo(`/batch/edit/${id}`)"
+            >Editar</Button
+          >
           <Button color="success">Gerenciar</Button>
           <Button color="danger" @click="destroy(id)">Excluir</Button>
         </Column>
@@ -48,7 +50,7 @@ async function destroy(id: IBatch['id']) {
     gap: 1rem;
     justify-content: space-between;
   }
-  .table thead tr {
+  :deep(.table) thead tr {
     :nth-last-child(1) {
       justify-content: center;
       display: grid;

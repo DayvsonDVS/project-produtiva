@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
 import { Batch } from '@/models/Batch'
+import { useCompany } from '@/stores/company'
+import { BatchManagement } from '@/models/BatchManagement'
 
 export const useBatch = defineStore('batch', {
   state: () => ({
@@ -12,10 +14,30 @@ export const useBatch = defineStore('batch', {
       this.lots = await useRequest('/lots', { method: 'get' })
     },
     async create(payload: Omit<Batch, 'id'>) {
-      const { id } = await useRequest('/lots', {
+      const companies = useCompany()
+      const id = await useRequest('/lots', {
         method: 'post',
         body: payload
       })
+
+      const listBatchManagement = [] as BatchManagement[]
+
+      companies.companies.map((company) => {
+        listBatchManagement.push({
+          id: undefined,
+          batch_id: id,
+          company_id: company.id,
+          historic: '',
+          receipt: '',
+          status: false
+        })
+      })
+
+      await useRequest('/batchManagement', {
+        method: 'post',
+        body: listBatchManagement
+      })
+
       return id as number
     },
     async show(payload: Pick<Batch, 'id'>) {

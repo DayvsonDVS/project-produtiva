@@ -42,7 +42,7 @@ async function destroy(id: ICopany['id']) {
 
 <style lang="scss">
 .company-table {
-  min-height: 800px;
+  height: max-content;
   .table {
     min-width: 800px;
     thead tr {
