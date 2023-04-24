@@ -1,10 +1,12 @@
 <template>
   <div class="management">
+    <Header title="Gerencimanto de Lotes" route="/" />
+
     <div class="overview-card">
       <div class="card">
         <img src="@/svg/Graphic-green.svg" />
         <div>
-          <span>1</span>
+          <span>{{ batchManagement.done }}</span>
           Concluídas
         </div>
       </div>
@@ -12,50 +14,26 @@
       <div class="card">
         <img src="@/svg/Graphic-red.svg" />
         <div>
-          <span>1</span>
+          <span>{{ batchManagement.pending }}</span>
           Pendentes
         </div>
       </div>
     </div>
 
-    <Table
-      :columns="['ID', 'Empresa', 'Status', 'Ação', 'Comprovante']"
-      striped
-    >
-      <Row uid="1">
-        <Column>1 </Column>
-        <Column>Jc Congelados LTDA </Column>
-        <Column>
-          <div>Pendente <img src="@/svg/X-red.svg" /></div>
-        </Column>
-        <Column>
-          <Button color="primary">Editar</Button>
-        </Column>
-        <Column> </Column>
-      </Row>
-
-      <Row uid="2">
-        <Column>2 </Column>
-        <Column>Ekimar Alimentos LTDA </Column>
-        <Column>
-          <div>Concluído <img src="@/svg/V-check.svg" /></div>
-        </Column>
-        <Column><Button color="primary">Editar</Button> </Column>
-        <Column>
-          <div>
-            <button class="receipt">
-              <img src="@/svg/Receipt.svg" />
-              Comprovante
-            </button>
-          </div>
-        </Column>
-      </Row>
-    </Table>
+    <CompanyManagementTable />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Button, Table, Column, Row } from 'bumi-components-new'
+import { useBatchManagement } from '@/stores/batchManament'
+
+const route = useRoute()
+const batchManagement = useBatchManagement()
+const id = Number(route.params.id)
+
+onMounted(() => {
+  batchManagement.show({ id })
+})
 </script>
 
 <style scoped lang="scss">

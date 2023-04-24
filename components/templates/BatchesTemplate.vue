@@ -5,7 +5,11 @@
     <div>
       <Button color="primary" @click="navigateTo('/batch/create')">+</Button>
       <Form :form="form">
-        <Field name="search" placeholder="Pesquisar lote" />
+        <Field name="searchable" placeholder="Pesquisar lote">
+          <template v-slot:prepend>
+            <img src="@/svg/magnifier.svg" />
+          </template>
+        </Field>
       </Form>
     </div>
 
@@ -16,9 +20,16 @@
 <script setup lang="ts">
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
+import { useBatch } from '@/stores/batch'
+
+const batch = useBatch()
 
 const form = darpi.newForm({
-  search: darpi.string().required()
+  searchable: darpi.string().required()
+})
+
+form.values.watch('searchable', (value) => {
+  batch.searchable = value
 })
 </script>
 

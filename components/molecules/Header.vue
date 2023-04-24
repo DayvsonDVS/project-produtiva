@@ -9,7 +9,7 @@
 <script setup lang="ts">
 interface Props {
   title: string
-  route: string
+  route?: string
 }
 
 defineProps<Props>()

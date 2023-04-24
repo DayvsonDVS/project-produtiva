@@ -7,8 +7,20 @@ import { BatchManagement } from '@/models/BatchManagement'
 export const useBatch = defineStore('batch', {
   state: () => ({
     lots: [] as Batch[],
-    batch: {} as Batch
+    batch: {} as Batch,
+    searchable: ''
   }),
+  getters: {
+    filteredBatch: (state) => {
+      if (state.searchable === '') return state.lots
+
+      return state.lots.filter(({ name }) => {
+        const totalText = `${name} `.toLowerCase()
+
+        return totalText.includes(state.searchable.toLowerCase())
+      })
+    }
+  },
   actions: {
     async fetchLots() {
       this.lots = await useRequest('/lots', { method: 'get' })
@@ -29,7 +41,7 @@ export const useBatch = defineStore('batch', {
           company_id: company.id,
           historic: '',
           receipt: '',
-          status: false
+          status: 'pending'
         })
       })
 

@@ -12,8 +12,8 @@
     </div>
 
     <Field name="status" as="radio-group">
-      <span as="radio-item" value="false">Pendente</span>
-      <span as="radio-item" value="true">Concluído</span>
+      <span as="radio-item" :value="`pending`" checked>Pendente</span>
+      <span as="radio-item" :value="`done`">Concluído</span>
     </Field>
 
     <CompanyBatchTable />
@@ -35,7 +35,7 @@ const lamp = ref<HTMLElement>()
 
 const form = darpi.newForm({
   name: darpi.string().required(),
-  status: darpi.boolean().required()
+  status: darpi.string().required()
 })
 
 onMounted(() => {

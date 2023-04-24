@@ -1,21 +1,23 @@
 <template>
   <div class="batch-table">
     <Table :columns="['ID', 'Lote', 'Status', 'Ação']" striped>
-      <Row v-for="{ id, name, status } in batch.lots" :uid="id">
+      <Row v-for="{ id, name, status } in batch.filteredBatch" :uid="id">
         <Column>{{ id }} </Column>
         <Column>{{ name }} </Column>
         <Column>
           <div class="status">
-            {{ status == true ? 'Concluído' : 'Pendente' }}
-            <img v-if="status == false" src="@/svg/X-red.svg" />
-            <img v-if="status == true" src="@/svg/V-check.svg" />
+            {{ status == 'done' ? 'Concluído' : 'Pendente' }}
+            <img v-if="status == 'pending'" src="@/svg/X-red.svg" />
+            <img v-if="status == 'done'" src="@/svg/V-check.svg" />
           </div>
         </Column>
         <Column>
           <Button color="primary" @click="navigateTo(`/batch/edit/${id}`)"
             >Editar</Button
           >
-          <Button color="success">Gerenciar</Button>
+          <Button color="success" @click="navigateTo(`/batch/management/${id}`)"
+            >Gerenciar</Button
+          >
           <Button color="danger" @click="destroy(id)">Excluir</Button>
         </Column>
       </Row>

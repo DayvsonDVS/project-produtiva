@@ -1,12 +1,30 @@
 import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
-import { BatchManagement, BatchCompanies } from '@/models/BatchManagement'
-
+import {
+  BatchManagement,
+  BatchCompanies,
+  BatchManagementCompanies
+} from '@/models/BatchManagement'
 export const useBatchManagement = defineStore('BatchManagement', {
   state: () => ({
     batchManagement: [] as BatchManagement[],
-    batchCompanies: [] as BatchCompanies[]
+    batchCompanies: [] as BatchCompanies[],
+    batchManagementCompanies: [] as BatchManagementCompanies[],
+    pending: 0,
+    done: 0
   }),
+
+  // getters: {
+  //   overview: (state) => {
+  //     state.batchManagementCompanies.map(({ status }) => {
+  //       if (status === 'pending') {
+  //         state.pending++
+  //       } else {
+  //         state.done++
+  //       }
+  //     })
+  //   }
+  // },
   actions: {
     async fetchBatchManagement() {
       this.batchManagement = await useRequest('/BatchManagement', {
@@ -15,9 +33,16 @@ export const useBatchManagement = defineStore('BatchManagement', {
     },
 
     async show(payload: Pick<BatchManagement, 'id'>) {
-      this.batchCompanies = await useRequest(`/batchManagement/${payload.id}`, {
-        method: 'get'
-      })
+      const { companiesBatch, companiesBatchManagement } = await useRequest(
+        `/batchManagement/${payload.id}`,
+        {
+          method: 'get'
+        }
+      )
+      this.batchCompanies = companiesBatch
+      this.batchManagementCompanies = companiesBatchManagement
+
+      this.overview()
     },
     async update(payload: Omit<BatchManagement, 'id'>) {
       // const { id } = await useRequest(
@@ -32,6 +57,19 @@ export const useBatchManagement = defineStore('BatchManagement', {
     async destroy(id: BatchManagement['id']) {
       await useRequest(`/batchManagement/${id}`, {
         method: 'delete'
+      })
+    },
+    overview() {
+      let countPending = 0
+      let countDone = 0
+      this.batchManagementCompanies.map(({ status }) => {
+        if (status === 'pending') {
+          countPending++
+        } else {
+          countDone++
+        }
+        this.done = countDone
+        this.pending = countPending
       })
     }
   }

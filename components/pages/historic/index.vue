@@ -1,9 +1,6 @@
 <template>
   <div class="historic">
-    <div class="header">
-      <h2>Editar Histórico</h2>
-      <img src="@/svg/Close-Button.svg" alt="" />
-    </div>
+    <Header title="Editar Histórico" @click="router.back" />
 
     <Form class="historic-form" :form="form" @submit="send">
       <Field
@@ -14,8 +11,8 @@
       />
 
       <Field label="Status" name="status" as="radio-group">
-        <span as="radio-item" value="pendente" checked>Pendente</span>
-        <span as="radio-item" value="concluido">Concluido</span>
+        <span as="radio-item" value="pending" checked>Pendente</span>
+        <span as="radio-item" value="done">Concluido</span>
       </Field>
 
       <Field
@@ -39,6 +36,7 @@ import 'bumi-components-new/dist/style.css'
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 
+const router = useRouter()
 const hasError = useState(() => false)
 
 const form = darpi.newForm({
@@ -69,14 +67,6 @@ async function send() {
   justify-content: center;
   color: #ced1db;
   gap: 2rem;
-  .header {
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: space-between;
-    img {
-      cursor: pointer;
-    }
-  }
   .historic-form {
     display: grid;
     gap: 2rem;
