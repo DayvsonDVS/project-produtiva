@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
 import { Batch } from '@/models/Batch'
 import { useCompany } from '@/stores/company'
-import { BatchManagement } from '@/models/BatchManagement'
+import { BatchManagementCompanies } from '@/models/BatchManagement'
 
 export const useBatch = defineStore('batch', {
   state: () => ({
@@ -32,7 +32,7 @@ export const useBatch = defineStore('batch', {
         body: payload
       })
 
-      const listBatchManagement = [] as BatchManagement[]
+      const listBatchManagement = [] as BatchManagementCompanies[]
 
       companies.companies.map((company) => {
         listBatchManagement.push({

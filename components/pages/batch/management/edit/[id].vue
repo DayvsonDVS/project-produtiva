@@ -27,8 +27,8 @@
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManament'
 
-const route = useRoute()
 const batchManagement = useBatchManagement()
+const route = useRoute()
 const id = Number(route.params.id)
 
 onMounted(() => {

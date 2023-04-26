@@ -14,6 +14,7 @@ const route = useRoute()
 const batch = useBatch()
 const batchManagement = useBatchManagement()
 const id = Number(route.params.id)
+batchManagement.removeBatchCompanies = []
 
 onMounted(() => {
   batch.show({ id })

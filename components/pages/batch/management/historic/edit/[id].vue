@@ -1,8 +1,8 @@
 <template>
   <div class="historic">
-    <Header title="Editar Histórico" @click="router.back" />
+    <Header title="Editar Histórico" @click="router.go(-2)" />
 
-    <Form class="historic-form" :form="form" @submit="send">
+    <Form class="historic-form" :values="company" :form="form" @submit="send">
       <Field
         label="Nota Geral"
         name="historic"
@@ -31,12 +31,15 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script async setup lang="ts">
 import 'bumi-components-new/dist/style.css'
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
+import { useBatchManagement } from '@/stores/batchManament'
 
 const router = useRouter()
+const route = useRoute()
+const batchManagement = useBatchManagement()
 const hasError = useState(() => false)
 
 const form = darpi.newForm({
@@ -44,6 +47,10 @@ const form = darpi.newForm({
   status: darpi.string().required(),
   receipt: darpi.string().required()
 })
+
+const company = batchManagement.batchManagements.find(
+  (companies) => companies.company_id === Number(route.params.id)
+)
 
 async function send() {
   try {

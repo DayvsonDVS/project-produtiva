@@ -6,15 +6,15 @@
     >
       <Row
         v-for="{
-          id,
+          company_id,
           name,
           cnpj,
           status,
           receipt
-        } in batchManagement.batchManagementCompanies"
-        :uid="id"
+        } in batchManagement.batchManagements"
+        :uid="company_id"
       >
-        <Column>{{ id }} </Column>
+        <Column>{{ company_id }} </Column>
         <Column>{{ name }} </Column>
         <Column>{{ cnpj }} </Column>
 
@@ -33,7 +33,9 @@
         <Column>{{ receipt }} </Column>
 
         <Column>
-          <Button color="primary" @click="navigateTo(`/historic`)"
+          <Button
+            color="primary"
+            @click="navigateTo(`/batch/management/historic/edit/${company_id}`)"
             >Editar</Button
           >
         </Column>
@@ -47,6 +49,9 @@ import { Button, Table, Column, Row } from 'bumi-components-new'
 import { useBatchManagement } from '@/stores/batchManament'
 
 const batchManagement = useBatchManagement()
+// const route = useRoute()
+
+// batchManagement.idBatchEdit = Number(route.params.id)
 </script>
 
 <style lang="scss">

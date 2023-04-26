@@ -2,67 +2,59 @@ import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
 import {
   BatchManagement,
-  BatchCompanies,
   BatchManagementCompanies
 } from '@/models/BatchManagement'
+
 export const useBatchManagement = defineStore('BatchManagement', {
   state: () => ({
-    batchManagement: [] as BatchManagement[],
-    batchCompanies: [] as BatchCompanies[],
-    batchManagementCompanies: [] as BatchManagementCompanies[],
+    batchManagements: [] as BatchManagement[],
+    batchManagement: {} as BatchManagementCompanies,
     pending: 0,
-    done: 0
+    done: 0,
+    removeBatchCompanies: [] as number[]
   }),
 
-  // getters: {
-  //   overview: (state) => {
-  //     state.batchManagementCompanies.map(({ status }) => {
-  //       if (status === 'pending') {
-  //         state.pending++
-  //       } else {
-  //         state.done++
-  //       }
-  //     })
-  //   }
-  // },
   actions: {
     async fetchBatchManagement() {
-      this.batchManagement = await useRequest('/BatchManagement', {
+      this.batchManagements = await useRequest('/BatchManagement', {
         method: 'get'
       })
     },
 
     async show(payload: Pick<BatchManagement, 'id'>) {
-      const { companiesBatch, companiesBatchManagement } = await useRequest(
+      const { BatchManagement } = await useRequest(
         `/batchManagement/${payload.id}`,
         {
           method: 'get'
         }
       )
-      this.batchCompanies = companiesBatch
-      this.batchManagementCompanies = companiesBatchManagement
+      this.batchManagements = BatchManagement
 
       this.overview()
     },
-    async update(payload: Omit<BatchManagement, 'id'>) {
-      // const { id } = await useRequest(
-      //   `/batchManagement/${this.batchManagement.id}`,
-      //   {
-      //     method: 'put',
-      //     body: payload
-      //   }
-      // )
-      // return id as number
+
+    async update(payload: Omit<BatchManagementCompanies, 'id'>) {
+      const { id } = await useRequest(
+        `/batchManagement/${this.batchManagement.company_id}`,
+        {
+          method: 'put',
+          body: payload
+        }
+      )
+      return id as number
     },
-    async destroy(id: BatchManagement['id']) {
+
+    async destroyCompanies(id: number, payload: number[]) {
       await useRequest(`/batchManagement/${id}`, {
-        method: 'delete'
+        method: 'delete',
+        body: payload
       })
     },
+
     overview() {
       let countPending = 0
       let countDone = 0
-      this.batchManagementCompanies.map(({ status }) => {
+      this.batchManagements.map(({ status }) => {
         if (status === 'pending') {
           countPending++
         } else {

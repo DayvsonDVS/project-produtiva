@@ -27,11 +27,15 @@ import 'bumi-components-new/dist/style.css'
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useBatch } from '@/stores/batch'
+import { useBatchManagement } from '@/stores/batchManament'
 import tippy from 'tippy.js'
 
 const hasError = useState(() => false)
 const batchStore = useBatch()
+const batchManagement = useBatchManagement()
 const lamp = ref<HTMLElement>()
+const route = useRoute()
+const id = Number(route.params.id)
 
 const form = darpi.newForm({
   name: darpi.string().required(),
@@ -57,6 +61,12 @@ async function send() {
     hasError.value = false
 
     await batchStore.update(form.values.all)
+    await batchManagement.destroyCompanies(
+      id,
+      batchManagement.removeBatchCompanies
+    )
+
+    batchManagement.removeBatchCompanies = []
 
     navigateTo('/')
   } catch {
@@ -77,10 +87,16 @@ async function send() {
     }
   }
   .lamp-input {
+    width: max-content;
     display: grid;
     grid-auto-flow: column;
     align-items: center;
     gap: 1rem;
+    :deep(.field) {
+      .input-container {
+        width: max-content;
+      }
+    }
     img {
       position: relative;
       bottom: -14px;

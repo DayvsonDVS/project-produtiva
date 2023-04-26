@@ -1,7 +1,7 @@
 <template>
   <div class="company-table">
     <Table
-      :columns="['ID', 'Empresa', 'CNPJ', 'Data do contrato', 'Ação']"
+      :columns="['ID', 'EMPRESA', 'CNPJ', 'DATA DO CONTRATO', 'AÇÃO']"
       striped
     >
       <Row

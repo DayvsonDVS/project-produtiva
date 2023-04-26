@@ -1,6 +1,6 @@
 <template>
   <div class="batch-table">
-    <Table :columns="['ID', 'Lote', 'Status', 'Ação']" striped>
+    <Table :columns="['ID', 'LOTE', 'STATUS', 'AÇÃO']" striped>
       <Row v-for="{ id, name, status } in batch.filteredBatch" :uid="id">
         <Column>{{ id }} </Column>
         <Column>{{ name }} </Column>
@@ -15,7 +15,9 @@
           <Button color="primary" @click="navigateTo(`/batch/edit/${id}`)"
             >Editar</Button
           >
-          <Button color="success" @click="navigateTo(`/batch/management/${id}`)"
+          <Button
+            color="success"
+            @click="navigateTo(`/batch/management/edit/${id}`)"
             >Gerenciar</Button
           >
           <Button color="danger" @click="destroy(id)">Excluir</Button>
