@@ -3,7 +3,9 @@
     <Header title="Pesquisar Empresa" route="/" />
 
     <Form class="search-form" :form="form">
-      <Button color="primary" @click="navigateTo('/company/create')">+</Button>
+      <Button color="primary" @click="navigateTo('/company/companyCreate')"
+        >+</Button
+      >
 
       <Field name="searchable" placeholder="Pesquisar serviço">
         <template v-slot:prepend>

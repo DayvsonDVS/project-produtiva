@@ -25,11 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import { useBatchManagement } from '@/stores/batchManament'
+import { useBatchManagement } from '@/stores/batchManagement'
 
 const batchManagement = useBatchManagement()
 const route = useRoute()
-const id = Number(route.params.id)
+const id = Number(route.params.idBatch)
 
 onMounted(() => {
   batchManagement.show({ id })

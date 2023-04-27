@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { useBatch } from '@/stores/batch'
 import { useCompany } from '@/stores/company'
-import { useBatchManagement } from '@/stores/batchManament'
+import { useBatchManagement } from '@/stores/batchManagement'
 
 const batch = useBatch()
 const company = useCompany()

@@ -6,6 +6,7 @@
     >
       <Row
         v-for="{
+          batch_id,
           company_id,
           name,
           cnpj,
@@ -26,7 +27,7 @@
 
           <Column v-if="status === 'done'">
             Concluído
-            <img src="@/svg/V-red.svg" />
+            <img src="@/svg/V-check.svg" />
           </Column>
         </div>
 
@@ -35,7 +36,9 @@
         <Column>
           <Button
             color="primary"
-            @click="navigateTo(`/batch/management/historic/edit/${company_id}`)"
+            @click="
+              navigateTo(`/batch/management/historic/${batch_id}/${company_id}`)
+            "
             >Editar</Button
           >
         </Column>
@@ -46,7 +49,7 @@
 
 <script setup lang="ts">
 import { Button, Table, Column, Row } from 'bumi-components-new'
-import { useBatchManagement } from '@/stores/batchManament'
+import { useBatchManagement } from '@/stores/batchManagement'
 
 const batchManagement = useBatchManagement()
 // const route = useRoute()

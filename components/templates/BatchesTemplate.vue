@@ -3,7 +3,9 @@
     <Button color="primary" @click="navigateTo('/company')">Empresas</Button>
 
     <div>
-      <Button color="primary" @click="navigateTo('/batch/create')">+</Button>
+      <Button color="primary" @click="navigateTo('/batch/batchCreate')"
+        >+</Button
+      >
       <Form :form="form">
         <Field name="searchable" placeholder="Pesquisar lote">
           <template v-slot:prepend>

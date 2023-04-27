@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { Button, Table, Column, Row } from 'bumi-components-new'
-import { useBatchManagement } from '@/stores/batchManament'
+import { useBatchManagement } from '~/stores/batchManagement'
 
 const batchManagement = useBatchManagement()
 

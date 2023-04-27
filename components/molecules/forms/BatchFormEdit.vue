@@ -27,7 +27,7 @@ import 'bumi-components-new/dist/style.css'
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useBatch } from '@/stores/batch'
-import { useBatchManagement } from '@/stores/batchManament'
+import { useBatchManagement } from '~/stores/batchManagement'
 import tippy from 'tippy.js'
 
 const hasError = useState(() => false)

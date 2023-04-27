@@ -33,9 +33,11 @@ export const useBatchManagement = defineStore('BatchManagement', {
       this.overview()
     },
 
-    async update(payload: Omit<BatchManagementCompanies, 'id'>) {
+    async update(
+      payload: Omit<BatchManagementCompanies, 'id' | 'batch_id' | 'company_id'>
+    ) {
       const { id } = await useRequest(
-        `/batchManagement/${this.batchManagement.company_id}`,
+        `/batchManagement/${this.batchManagement.id}`,
         {
           method: 'put',
           body: payload

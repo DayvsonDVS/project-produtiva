@@ -16,6 +16,6 @@ export interface BatchManagementCompanies {
   batch_id: number
   company_id: number
   historic: string
-  receipt: string
+  receipt?: string
   status: string
 }

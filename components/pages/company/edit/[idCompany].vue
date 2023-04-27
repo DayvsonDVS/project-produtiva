@@ -11,7 +11,7 @@ import { useCompany } from '@/stores/company'
 
 const route = useRoute()
 const company = useCompany()
-const id = Number(route.params.id)
+const id = Number(route.params.idCompany)
 
 onMounted(() => {
   company.show({ id })
