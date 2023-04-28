@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { useBatch } from '@/stores/batch'
-import { useBatchManagement } from '~/stores/batchManagement'
+import { useBatchManagement } from '@/stores/batchManagement'
 
 const route = useRoute()
 const batch = useBatch()

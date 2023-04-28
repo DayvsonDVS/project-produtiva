@@ -35,12 +35,12 @@
 
         <Column>
           <Button
-            color="primary"
             @click="
-              navigateTo(`/batch/management/historic/${batch_id}/${company_id}`)
+              navigateTo(`/batch/${batch_id}/historic/edit/${company_id}`)
             "
-            >Editar</Button
           >
+            Editar
+          </Button>
         </Column>
       </Row>
     </Table>
@@ -52,9 +52,6 @@ import { Button, Table, Column, Row } from 'bumi-components-new'
 import { useBatchManagement } from '@/stores/batchManagement'
 
 const batchManagement = useBatchManagement()
-// const route = useRoute()
-
-// batchManagement.idBatchEdit = Number(route.params.id)
 </script>
 
 <style lang="scss">

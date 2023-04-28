@@ -29,7 +29,7 @@ import { useBatchManagement } from '@/stores/batchManagement'
 
 const batchManagement = useBatchManagement()
 const route = useRoute()
-const id = Number(route.params.idBatch)
+const id = Number(route.params.batchId)
 
 onMounted(() => {
   batchManagement.show({ id })

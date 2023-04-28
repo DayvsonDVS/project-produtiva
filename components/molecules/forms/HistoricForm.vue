@@ -1,5 +1,10 @@
 <template>
-  <Form class="historic-form" :values="company" :form="form" @submit="send">
+  <Form
+    class="historic-form"
+    :values="batchManagement.getCompany"
+    :form="form"
+    @submit="send"
+  >
     <Field
       label="Nota Geral"
       name="historic"
@@ -27,8 +32,7 @@
   </Form>
 </template>
 
-<script async setup lang="ts">
-import 'bumi-components-new/dist/style.css'
+<script setup lang="ts">
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useBatchManagement } from '@/stores/batchManagement'
@@ -36,12 +40,6 @@ import { useBatchManagement } from '@/stores/batchManagement'
 const batchManagement = useBatchManagement()
 const hasError = useState(() => false)
 const router = useRouter()
-
-const company = computed(() => {
-  return batchManagement.batchManagement
-})
-
-console.log(batchManagement.batchManagement)
 
 const form = darpi.newForm({
   historic: darpi.string().required(),

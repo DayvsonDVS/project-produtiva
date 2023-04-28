@@ -15,11 +15,10 @@
           <Button color="primary" @click="navigateTo(`/batch/edit/${id}`)"
             >Editar</Button
           >
-          <Button
-            color="success"
-            @click="navigateTo(`/batch/management/edit/${id}`)"
+          <Button color="success" @click="navigateTo(`/batch/${id}`)"
             >Gerenciar</Button
           >
+
           <Button color="danger" @click="destroy(id)">Excluir</Button>
         </Column>
       </Row>

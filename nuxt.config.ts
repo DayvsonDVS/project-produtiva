@@ -29,6 +29,6 @@ export default defineNuxtConfig({
 
   components: [{ path: '@/components', pathPrefix: false }],
   dir: {
-    pages: 'components/pages'
+    pages: 'components/pages/'
   }
 })

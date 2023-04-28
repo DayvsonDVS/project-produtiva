@@ -6,9 +6,7 @@
   </div>
 </template>
 
-<script async setup lang="ts">
-import 'bumi-components-new/dist/style.css'
-
+<script setup lang="ts">
 const router = useRouter()
 </script>
 

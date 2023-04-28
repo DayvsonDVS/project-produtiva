@@ -8,11 +8,19 @@ import {
 export const useBatchManagement = defineStore('BatchManagement', {
   state: () => ({
     batchManagements: [] as BatchManagement[],
-    batchManagement: {} as BatchManagementCompanies,
     pending: 0,
     done: 0,
-    removeBatchCompanies: [] as number[]
+    removeBatchCompanies: [] as number[],
+    idCompany: 0
   }),
+
+  getters: {
+    getCompany: (state) => {
+      return state.batchManagements.find(({ company_id }) => {
+        return company_id === state.idCompany
+      })
+    }
+  },
 
   actions: {
     async fetchBatchManagement() {
@@ -22,14 +30,12 @@ export const useBatchManagement = defineStore('BatchManagement', {
     },
 
     async show(payload: Pick<BatchManagement, 'id'>) {
-      const { BatchManagement } = await useRequest(
+      this.batchManagements = await useRequest(
         `/batchManagement/${payload.id}`,
         {
           method: 'get'
         }
       )
-      this.batchManagements = BatchManagement
-
       this.overview()
     },
 
@@ -37,7 +43,7 @@ export const useBatchManagement = defineStore('BatchManagement', {
       payload: Omit<BatchManagementCompanies, 'id' | 'batch_id' | 'company_id'>
     ) {
       const { id } = await useRequest(
-        `/batchManagement/${this.batchManagement.id}`,
+        `/batchManagement/${this.getCompany?.id}`,
         {
           method: 'put',
           body: payload
