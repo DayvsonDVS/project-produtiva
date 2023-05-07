@@ -25,13 +25,19 @@
             <img src="@/svg/X-red.svg" />
           </Column>
 
-          <Column v-if="status === 'done'">
+          <Column v-if="status === 'done'" @click="openFile(receipt)">
             Concluído
             <img src="@/svg/V-check.svg" />
           </Column>
         </div>
 
-        <Column>{{ receipt }} </Column>
+        <Column>
+          <div class="attachments">
+            <Tag v-if="receipt" @click="openFile(receipt)">
+              <img src="@/svg/Image.svg" /> Arquivo
+            </Tag>
+          </div>
+        </Column>
 
         <Column>
           <Button
@@ -52,6 +58,10 @@ import { Button, Table, Column, Row } from 'bumi-components-new'
 import { useBatchManagement } from '@/stores/batchManagement'
 
 const batchManagement = useBatchManagement()
+
+function openFile(url: string) {
+  window.open(url, '_blank')
+}
 </script>
 
 <style lang="scss">
@@ -70,6 +80,10 @@ const batchManagement = useBatchManagement()
         display: grid;
         grid-auto-flow: column;
         gap: 1rem;
+      }
+      :nth-last-child(1) {
+        display: grid;
+        justify-self: center;
       }
     }
   }

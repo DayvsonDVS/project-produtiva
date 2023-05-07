@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
-import {
-  BatchManagement,
-  BatchManagementCompanies
-} from '@/models/BatchManagement'
+import { BatchManagement, CreatePayload } from '@/models/BatchManagement'
 
 export const useBatchManagement = defineStore('BatchManagement', {
   state: () => ({
@@ -40,7 +37,7 @@ export const useBatchManagement = defineStore('BatchManagement', {
     },
 
     async update(
-      payload: Omit<BatchManagementCompanies, 'id' | 'batch_id' | 'company_id'>
+      payload: Omit<CreatePayload, 'id' | 'batch_id' | 'company_id'>
     ) {
       const { id } = await useRequest(
         `/batchManagement/${this.getCompany?.id}`,
@@ -49,6 +46,7 @@ export const useBatchManagement = defineStore('BatchManagement', {
           body: payload
         }
       )
+
       return id as number
     },
 
@@ -71,6 +69,19 @@ export const useBatchManagement = defineStore('BatchManagement', {
         this.done = countDone
         this.pending = countPending
       })
+    },
+
+    async attachReceipt(payload: Pick<CreatePayload, 'receipt'>) {
+      const formData = new FormData()
+
+      if (payload.receipt) {
+        formData.append('file', payload.receipt)
+
+        await useRequest(`/batchManagement/${this.getCompany?.id}`, {
+          method: 'put',
+          body: formData
+        })
+      }
     }
   }
 })

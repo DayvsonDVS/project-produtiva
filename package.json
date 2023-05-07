@@ -12,7 +12,10 @@
     "nuxt": "^3.3.3"
   },
   "dependencies": {
+    "@adonisjs/bodyparser": "^8.1.7",
+    "@adonisjs/core": "github:adonisjs/core",
     "@cataline.io/darpi": "^1.1.11",
+    "@google-cloud/storage": "^6.10.0",
     "@pinia/nuxt": "^0.4.8",
     "bumi-components-new": "^0.0.16",
     "date-fns": "^2.29.3",

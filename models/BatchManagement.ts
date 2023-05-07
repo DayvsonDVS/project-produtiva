@@ -19,3 +19,12 @@ export interface BatchManagementCompanies {
   receipt?: string
   status: string
 }
+
+export interface CreatePayload {
+  id: number
+  batch_id: BatchManagement['batch_id']
+  company_id: BatchManagement['company_id']
+  historic: BatchManagement['historic']
+  receipt?: File
+  status: string
+}

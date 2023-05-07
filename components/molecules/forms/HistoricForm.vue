@@ -44,7 +44,7 @@ const router = useRouter()
 const form = darpi.newForm({
   historic: darpi.string().required(),
   status: darpi.string().required(),
-  receipt: darpi.string()
+  receipt: darpi.file('15mb')
 })
 
 async function send() {
@@ -53,6 +53,10 @@ async function send() {
     hasError.value = false
 
     await batchManagement.update(form.values.all)
+
+    if (form.values.all.status) {
+      await batchManagement.attachReceipt(form.values.all)
+    }
 
     router.go(-1)
   } catch {

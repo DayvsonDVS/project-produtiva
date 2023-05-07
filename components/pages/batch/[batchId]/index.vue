@@ -2,6 +2,10 @@
   <div class="management">
     <Header title="Gerencimanto de Lotes" route="/" />
 
+    <div class="location-lote">
+      <span>{{ batch.batch.name }}</span>
+    </div>
+
     <div class="overview-card">
       <div class="card">
         <img src="@/svg/Graphic-green.svg" />
@@ -26,12 +30,15 @@
 
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManagement'
+import { useBatch } from '@/stores/batch'
 
+const batch = useBatch()
 const batchManagement = useBatchManagement()
 const route = useRoute()
 const id = Number(route.params.batchId)
 
 onMounted(() => {
+  batch.show({ id })
   batchManagement.show({ id })
 })
 </script>
@@ -42,6 +49,16 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   gap: 2rem;
+
+  .location-lote {
+    display: grid;
+    justify-self: center;
+    color: #fff;
+    background: #282c36;
+    width: max-content;
+    padding: 1rem;
+    border-radius: 12px;
+  }
   .overview-card {
     display: grid;
     grid-auto-flow: column;
