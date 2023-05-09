@@ -108,15 +108,6 @@ async function send() {
       }
     }
   }
-  .input-column {
-    display: grid;
-    grid-auto-flow: column;
-    :deep(:nth-child(1)) {
-      .input-container {
-        width: max-content;
-      }
-    }
-  }
   .field {
     :deep(span) {
       font-size: 18px;

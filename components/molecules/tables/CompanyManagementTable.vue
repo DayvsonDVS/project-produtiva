@@ -21,12 +21,12 @@
 
         <div class="status">
           <Column v-if="status === 'pending'">
-            Pendente
+            <span>Pendente</span>
             <img src="@/svg/X-red.svg" />
           </Column>
 
-          <Column v-if="status === 'done'" @click="openFile(receipt)">
-            Concluído
+          <Column v-if="status === 'done'">
+            <span>Concluído</span>
             <img src="@/svg/V-check.svg" />
           </Column>
         </div>
@@ -34,7 +34,8 @@
         <Column>
           <div class="attachments">
             <Tag v-if="receipt" @click="openFile(receipt)">
-              <img src="@/svg/Image.svg" /> Arquivo
+              <img src="@/svg/Image.svg" />
+              <span>Arquivo</span>
             </Tag>
           </div>
         </Column>
@@ -76,14 +77,27 @@ function openFile(url: string) {
       }
     }
     tbody tr {
-      :nth-last-child(1) {
-        display: grid;
-        grid-auto-flow: column;
-        gap: 1rem;
+      .status {
+        th {
+          display: grid;
+          grid-auto-flow: column;
+          gap: 0.5rem;
+          justify-content: space-between;
+          align-items: center;
+          span {
+            padding: 10px 10px 10px 0px;
+          }
+        }
       }
-      :nth-last-child(1) {
-        display: grid;
-        justify-self: center;
+      th {
+        .attachments {
+          div {
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: center;
+            gap: 0.5rem;
+          }
+        }
       }
     }
   }

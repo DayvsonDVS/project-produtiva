@@ -34,26 +34,3 @@ function removeCompany(id: number) {
   batchManagement.batchManagements = newList
 }
 </script>
-
-<style lang="scss">
-.company-batch-table {
-  height: max-content;
-  .table {
-    min-width: 800px;
-    thead tr {
-      :nth-last-child(1) {
-        display: grid;
-        justify-content: center;
-      }
-    }
-    tbody tr {
-      :nth-last-child(1) {
-        display: grid;
-        grid-auto-flow: column;
-        gap: 1rem;
-        justify-content: center;
-      }
-    }
-  }
-}
-</style>
