@@ -21,7 +21,7 @@ export const useAuth = defineStore('auth', {
         body: payload
       })
 
-      token.value = data.token
+      token.value = data.values.token
 
       this.isAuthenticated = true
     }

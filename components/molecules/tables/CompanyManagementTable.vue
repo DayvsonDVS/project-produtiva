@@ -12,7 +12,7 @@
           cnpj,
           status,
           receipt
-        } in batchManagement.batchManagements"
+        } in batchManagement.filterCompany"
         :uid="company_id"
       >
         <Column>{{ company_id }} </Column>

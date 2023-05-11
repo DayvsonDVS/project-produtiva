@@ -6,6 +6,9 @@ export interface BatchManagement {
   company_id: number
   name: Company['name']
   cnpj: Company['cnpj']
+  user: string
+  created_at: string
+  updated_at: string
   status: string
   historic: string
   receipt: string

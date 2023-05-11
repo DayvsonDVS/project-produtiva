@@ -17,6 +17,16 @@
       <span as="radio-item" :value="`done`">Concluido</span>
     </Field>
 
+    <img ref="eye" class="see" :src="srcEye" @click="openLog()" />
+
+    <div class="log">
+      <div class="log-input" v-show="showLog">
+        <Field label="Usuário" name="user" disabled />
+
+        <Field label="Última Alteração" name="updated_at" disabled />
+      </div>
+    </div>
+
     <Field
       label="Comprovante de envio"
       name="receipt"
@@ -36,15 +46,25 @@
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useBatchManagement } from '@/stores/batchManagement'
+import tippy from 'tippy.js'
 
 const batchManagement = useBatchManagement()
 const hasError = useState(() => false)
 const router = useRouter()
+const showLog = ref<boolean>(false)
+const eye = ref<HTMLElement>()
+const srcEye = ref('/svg/Eye.svg')
 
 const form = darpi.newForm({
   historic: darpi.string().required(),
   status: darpi.string().required(),
+  user: darpi.string(),
+  updated_at: darpi.string('DD/MM/YYYY'),
   receipt: darpi.file('15mb')
+})
+
+onMounted(() => {
+  tippy(eye.value!, { content: 'Log de ações' })
 })
 
 async function send() {
@@ -65,12 +85,36 @@ async function send() {
     form.loading = false
   }
 }
+function openLog() {
+  showLog.value = !showLog.value
+  if (showLog.value) {
+    srcEye.value = '/svg/Eye-slash.svg'
+  } else {
+    srcEye.value = '/svg/Eye.svg'
+  }
+}
 </script>
 
 <style scoped lang="scss">
 .historic-form {
   display: grid;
-  gap: 2rem;
+  .see {
+    width: 20px;
+    cursor: pointer;
+    color: #fff;
+    justify-self: end;
+  }
+  .log {
+    display: grid;
+    justify-content: center;
+    width: auto;
+    .log-input {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 1rem;
+      width: 460px;
+    }
+  }
   .field {
     :deep(span) {
       font-size: 18px;

@@ -6,9 +6,13 @@
       <span>{{ batch.batch.name }}</span>
     </div>
 
+    <div class="clean-filter" ref="iconFilter">
+      <img src="@/svg/Arrow-repeat.svg" @click="cleanFilter()" />
+    </div>
+
     <div class="overview-card">
       <div class="card">
-        <img src="@/svg/Graphic-green.svg" />
+        <img src="@/svg/Graphic-green.svg" @click="filter('done')" />
         <div>
           <span>{{ batchManagement.done }}</span>
           Concluídas
@@ -16,7 +20,7 @@
       </div>
 
       <div class="card">
-        <img src="@/svg/Graphic-red.svg" />
+        <img src="@/svg/Graphic-red.svg" @click="filter('pending')" />
         <div>
           <span>{{ batchManagement.pending }}</span>
           Pendentes
@@ -31,16 +35,28 @@
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManagement'
 import { useBatch } from '@/stores/batch'
+import tippy from 'tippy.js'
 
 const batch = useBatch()
 const batchManagement = useBatchManagement()
+const iconFilter = ref<HTMLElement>()
 const route = useRoute()
 const id = Number(route.params.batchId)
 
 onMounted(() => {
   batch.show({ id })
   batchManagement.show({ id })
+
+  tippy(iconFilter.value!, { content: 'Limpar filtro' })
 })
+
+function filter(status: string) {
+  batchManagement.statusCompany = status
+}
+
+function cleanFilter() {
+  batchManagement.statusCompany = 'all'
+}
 </script>
 
 <style scoped lang="scss">
@@ -48,8 +64,7 @@ onMounted(() => {
   display: grid;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-
+  gap: 2.5rem;
   .location-lote {
     display: grid;
     justify-self: center;
@@ -58,6 +73,16 @@ onMounted(() => {
     width: max-content;
     padding: 1rem;
     border-radius: 12px;
+    border: solid #018ffb;
+  }
+  .clean-filter {
+    display: flex;
+    justify-self: end;
+    padding-right: 12px;
+    img {
+      cursor: pointer;
+      width: 25px;
+    }
   }
   .overview-card {
     display: grid;
@@ -74,7 +99,11 @@ onMounted(() => {
       gap: 4rem;
       padding: 12px;
       img {
+        border-radius: 18px;
         cursor: pointer;
+        &:hover {
+          box-shadow: 2px 2px 18px white;
+        }
       }
       div {
         display: grid;

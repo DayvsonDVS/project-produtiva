@@ -8,7 +8,8 @@ export const useBatchManagement = defineStore('BatchManagement', {
     pending: 0,
     done: 0,
     removeBatchCompanies: [] as number[],
-    idCompany: 0
+    idCompany: 0,
+    statusCompany: 'all'
   }),
 
   getters: {
@@ -16,6 +17,14 @@ export const useBatchManagement = defineStore('BatchManagement', {
       return state.batchManagements.find(({ company_id }) => {
         return company_id === state.idCompany
       })
+    },
+    filterCompany: (state) => {
+      if (state.statusCompany !== 'all') {
+        return state.batchManagements.filter(({ status }) => {
+          return status === state.statusCompany
+        })
+      }
+      return state.batchManagements
     }
   },
 
@@ -37,13 +46,18 @@ export const useBatchManagement = defineStore('BatchManagement', {
     },
 
     async update(
-      payload: Omit<CreatePayload, 'id' | 'batch_id' | 'company_id'>
+      payload: Omit<
+        CreatePayload,
+        'id' | 'batch_id' | 'company_id' | 'updated_at' | 'user'
+      >
     ) {
+      const { user } = useCookie('token').value as any
+
       const { id } = await useRequest(
         `/batchManagement/${this.getCompany?.id}`,
         {
           method: 'put',
-          body: payload
+          body: { payload, user }
         }
       )
 
