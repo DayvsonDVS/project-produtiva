@@ -7,6 +7,10 @@ import { useBatch } from '@/stores/batch'
 import { useCompany } from '@/stores/company'
 import { useBatchManagement } from '@/stores/batchManagement'
 
+definePageMeta({
+  middleware: 'guest'
+})
+
 const batch = useBatch()
 const company = useCompany()
 const batchManagement = useBatchManagement()

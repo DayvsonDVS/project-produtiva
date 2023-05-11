@@ -30,7 +30,7 @@
     <Field
       label="Comprovante de envio"
       name="receipt"
-      placeholder="Procurar arquivo"
+      :placeholder="batchManagement.getCompany?.receipt || 'Procurar arquivo'"
       as="file"
     >
       <img src="@/svg/Clip.svg" />
@@ -98,6 +98,7 @@ function openLog() {
 <style scoped lang="scss">
 .historic-form {
   display: grid;
+  min-width: 600px;
   .see {
     width: 20px;
     cursor: pointer;
@@ -131,7 +132,6 @@ function openLog() {
       background: #1c2029;
       border-radius: 12px;
       color: #838692;
-      width: 500px;
     }
     :deep(.checkmark) {
       cursor: pointer;

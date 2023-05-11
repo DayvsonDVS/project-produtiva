@@ -43,7 +43,9 @@ async function send() {
 
 <style scoped lang="scss">
 .login-form {
-  min-width: 300px;
+  min-width: 400px;
+  display: grid;
+  justify-self: center;
   :nth-last-child(1) {
     justify-self: center;
   }

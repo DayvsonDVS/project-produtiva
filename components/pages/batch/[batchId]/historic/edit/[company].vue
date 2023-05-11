@@ -12,6 +12,10 @@ onMounted(() => {
   batchManagement.show({ id: Number(route.params.batchId) })
   batchManagement.idCompany = Number(route.params.company)
 })
+
+definePageMeta({
+  middleware: 'guest'
+})
 </script>
 
 <style scoped lang="scss">

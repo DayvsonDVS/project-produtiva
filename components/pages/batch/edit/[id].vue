@@ -20,6 +20,10 @@ onMounted(() => {
   batch.show({ id })
   batchManagement.show({ id })
 })
+
+definePageMeta({
+  middleware: 'guest'
+})
 </script>
 
 <style scoped lang="scss">

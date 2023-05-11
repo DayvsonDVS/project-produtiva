@@ -64,6 +64,7 @@ async function send() {
 .batch-form {
   display: grid;
   gap: 2rem;
+  min-width: 600px;
   :deep(:nth-child(1)) {
     .input-container {
       width: 500px;

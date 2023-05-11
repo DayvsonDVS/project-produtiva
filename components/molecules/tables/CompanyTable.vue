@@ -1,9 +1,6 @@
 <template>
   <div class="company-table">
-    <Table
-      :columns="['ID', 'EMPRESA', 'CNPJ', 'DATA DO CONTRATO', 'AÇÃO']"
-      striped
-    >
+    <Table :columns="['ID', 'EMPRESA', 'CNPJ', 'CONTRATO', 'AÇÃO']" striped>
       <Row
         v-for="{ id, name, cnpj, contract_date } in company.filteredCompanies"
         :uid="id"

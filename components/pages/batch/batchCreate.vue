@@ -6,11 +6,16 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  middleware: 'guest'
+})
+</script>
 
 <style scoped lang="scss">
 .batch-create {
   display: grid;
+  justify-content: center;
   gap: 1rem;
 }
 </style>

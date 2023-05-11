@@ -19,19 +19,16 @@ const batchManagement = useBatchManagement()
 
 <style scoped lang="scss">
 .historic-template {
-  width: 900px;
   display: grid;
   align-items: center;
   justify-content: center;
   color: #ced1db;
   gap: 2rem;
-
   .location-company {
     display: grid;
     justify-self: center;
     color: #fff;
     background: #282c36;
-    width: max-content;
     padding: 1rem;
     border-radius: 12px;
     border: solid #018ffb;

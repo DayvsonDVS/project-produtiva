@@ -10,4 +10,8 @@ const company = useCompany()
 onMounted(() => {
   company.fetchCompanies()
 })
+
+definePageMeta({
+  middleware: 'guest'
+})
 </script>

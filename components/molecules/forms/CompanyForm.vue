@@ -68,6 +68,7 @@ async function send() {
 .company-form {
   display: grid;
   gap: 2rem;
+  max-width: 600px;
   :deep(:nth-child(1)) {
     .input-container {
       width: 500px;

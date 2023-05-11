@@ -43,6 +43,10 @@ const iconFilter = ref<HTMLElement>()
 const route = useRoute()
 const id = Number(route.params.batchId)
 
+definePageMeta({
+  middleware: 'guest'
+})
+
 onMounted(() => {
   batch.show({ id })
   batchManagement.show({ id })

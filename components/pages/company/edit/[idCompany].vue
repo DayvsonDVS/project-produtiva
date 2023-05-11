@@ -13,6 +13,10 @@ const route = useRoute()
 const company = useCompany()
 const id = Number(route.params.idCompany)
 
+definePageMeta({
+  middleware: 'guest'
+})
+
 onMounted(() => {
   company.show({ id })
 })
@@ -20,7 +24,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .company-edit {
-  width: 900px;
   display: grid;
   align-items: center;
   justify-content: center;
