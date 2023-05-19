@@ -12,6 +12,6 @@ onMounted(() => {
 })
 
 definePageMeta({
-  middleware: 'guest'
+  middleware: ['guest', 'guest-admin']
 })
 </script>

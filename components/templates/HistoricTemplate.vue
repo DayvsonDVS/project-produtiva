@@ -1,6 +1,6 @@
 <template>
   <div class="historic-template">
-    <Header title="Editar Histórico" @click="router.go(-2)" />
+    <Header title="Editar Histórico" @click="router.go(-1)" />
 
     <div class="location-company">
       <span>{{ batchManagement.getCompany?.name }}</span>

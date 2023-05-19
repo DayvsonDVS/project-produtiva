@@ -16,6 +16,7 @@ const company = useCompany()
 const batchManagement = useBatchManagement()
 
 batchManagement.removeBatchCompanies = []
+batchManagement.addBatchCompanies = []
 
 onMounted(() => {
   batch.fetchLots()

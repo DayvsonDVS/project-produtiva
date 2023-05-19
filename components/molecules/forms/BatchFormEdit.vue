@@ -16,7 +16,11 @@
       <span as="radio-item" :value="`done`">Concluído</span>
     </Field>
 
+    <h3>Empresas do lote</h3>
     <CompanyBatchTable />
+
+    <h3>Adicionar empresas</h3>
+    <CompanyBatchTableAdd />
 
     <Button type="submit" :disabled="form.loading"> Atualizar </Button>
   </Form>
@@ -27,7 +31,8 @@ import 'bumi-components-new/dist/style.css'
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useBatch } from '@/stores/batch'
-import { useBatchManagement } from '~/stores/batchManagement'
+import { useBatchManagement } from '@/stores/batchManagement'
+import { CreatePayload } from '@/models/BatchManagement'
 import tippy from 'tippy.js'
 
 const hasError = useState(() => false)
@@ -36,6 +41,7 @@ const batchManagement = useBatchManagement()
 const lamp = ref<HTMLElement>()
 const route = useRoute()
 const id = Number(route.params.id)
+const listBatchManagement = [] as CreatePayload[]
 
 const form = darpi.newForm({
   name: darpi.string().required(),
@@ -60,6 +66,19 @@ async function send() {
     form.loading = true
     hasError.value = false
 
+    if (batchManagement.addBatchCompanies.length !== 0) {
+      batchManagement.addBatchCompanies.map((company) => {
+        listBatchManagement.push({
+          id: undefined,
+          batch_id: id,
+          company_id: company.id,
+          historic: '',
+          status: 'pending'
+        })
+      })
+      await batchManagement.create(listBatchManagement)
+    }
+
     await batchStore.update(form.values.all)
     await batchManagement.destroyCompanies(
       id,
@@ -67,6 +86,7 @@ async function send() {
     )
 
     batchManagement.removeBatchCompanies = []
+    batchManagement.addBatchCompanies = []
 
     navigateTo('/')
   } catch {
@@ -81,6 +101,11 @@ async function send() {
 .batch-form-edit {
   display: grid;
   gap: 2rem;
+  h3 {
+    display: grid;
+    justify-content: center;
+    color: #fff;
+  }
   :deep(:nth-child(1)) {
     .input-container {
       width: 500px;

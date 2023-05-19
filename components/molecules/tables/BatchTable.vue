@@ -12,14 +12,19 @@
           </div>
         </Column>
         <Column>
-          <Button color="primary" @click="navigateTo(`/batch/edit/${id}`)"
+          <Button
+            color="primary"
+            v-if="profile === 'admin'"
+            @click="navigateTo(`/batch/edit/${id}`)"
             >Editar</Button
           >
           <Button color="success" @click="navigateTo(`/batch/${id}`)"
             >Gerenciar</Button
           >
 
-          <Button color="danger" @click="destroy(id)">Excluir</Button>
+          <Button color="danger" v-if="profile === 'admin'" @click="destroy(id)"
+            >Excluir</Button
+          >
         </Column>
       </Row>
     </Table>
@@ -32,6 +37,7 @@ import { useBatch } from '@/stores/batch'
 import { Batch as IBatch } from '@/models/Batch'
 
 const batch = useBatch()
+const { profile } = useCookie('token').value as any
 
 async function destroy(id: IBatch['id']) {
   const confirmation = confirm('Deseja realmente excluir?')

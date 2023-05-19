@@ -14,7 +14,7 @@ const company = useCompany()
 const id = Number(route.params.idCompany)
 
 definePageMeta({
-  middleware: 'guest'
+  middleware: ['guest', 'guest-admin']
 })
 
 onMounted(() => {

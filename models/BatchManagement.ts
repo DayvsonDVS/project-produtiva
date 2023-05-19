@@ -24,7 +24,7 @@ export interface BatchManagementCompanies {
 }
 
 export interface CreatePayload {
-  id: number
+  id?: number
   batch_id: BatchManagement['batch_id']
   company_id: BatchManagement['company_id']
   historic: BatchManagement['historic']

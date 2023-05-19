@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'guest'
+  middleware: ['guest', 'guest-admin']
 })
 </script>
 

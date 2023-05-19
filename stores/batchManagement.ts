@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
 import { BatchManagement, CreatePayload } from '@/models/BatchManagement'
+import { Company } from '@/models/Company'
 
 export const useBatchManagement = defineStore('BatchManagement', {
   state: () => ({
@@ -8,6 +9,7 @@ export const useBatchManagement = defineStore('BatchManagement', {
     pending: 0,
     done: 0,
     removeBatchCompanies: [] as number[],
+    addBatchCompanies: [] as Company[],
     idCompany: 0,
     statusCompany: 'all'
   }),
@@ -33,6 +35,15 @@ export const useBatchManagement = defineStore('BatchManagement', {
       this.batchManagements = await useRequest('/BatchManagement', {
         method: 'get'
       })
+    },
+
+    async create(payload: Omit<CreatePayload, 'id'>[]) {
+      const id = await useRequest('/batchManagement', {
+        method: 'post',
+        body: payload
+      })
+
+      return id as number
     },
 
     async show(payload: Pick<BatchManagement, 'id'>) {

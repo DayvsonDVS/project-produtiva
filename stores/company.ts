@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
 import { Company } from '@/models/Company'
+import { BatchManagement } from '@/models/BatchManagement'
 
 export const useCompany = defineStore('company', {
   state: () => ({
     companies: [] as Company[],
     company: {} as Company,
-    searchable: ''
+    searchable: '',
+    batchCompanies: [] as BatchManagement[]
   }),
   getters: {
     filteredCompanies: (state) => {
@@ -17,6 +19,15 @@ export const useCompany = defineStore('company', {
 
         return totalText.includes(state.searchable.toLowerCase())
       })
+    },
+    filterBatchCompanies: (state) => {
+      const listBatchCompanies = state.batchCompanies.map(
+        (company) => company.company_id
+      )
+
+      return state.companies.filter(
+        (company) => !listBatchCompanies.includes(company.id)
+      )
     }
   },
   actions: {
@@ -24,6 +35,11 @@ export const useCompany = defineStore('company', {
       this.companies = (await useRequest('/companies', {
         method: 'get'
       })) as Company[]
+    },
+    async fetchBatchCompaniesShow(payload: Pick<BatchManagement, 'id'>) {
+      this.batchCompanies = await useRequest(`/batchManagement/${payload.id}`, {
+        method: 'get'
+      })
     },
     async create(payload: Omit<Company, 'id'>) {
       const { id } = await useRequest('/companies', {
