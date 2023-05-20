@@ -39,7 +39,8 @@ async function destroy(id: ICopany['id']) {
 
 <style lang="scss">
 .company-table {
-  height: max-content;
+  max-height: 600px;
+  overflow-y: auto;
   .table {
     min-width: 800px;
     thead tr {

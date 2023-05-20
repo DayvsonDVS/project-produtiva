@@ -50,9 +50,8 @@ async function destroy(id: IBatch['id']) {
 
 <style scoped lang="scss">
 .batch-table {
-  .table .tbody .column .button {
-    margin-right: 12px;
-  }
+  max-height: 600px;
+  overflow-y: auto;
   .status {
     display: grid;
     grid-auto-flow: column;
@@ -63,6 +62,13 @@ async function destroy(id: IBatch['id']) {
     :nth-last-child(1) {
       justify-content: center;
       display: grid;
+    }
+  }
+  :deep(.table) tbody tr {
+    :nth-last-child(1) {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 0.5rem;
     }
   }
 }

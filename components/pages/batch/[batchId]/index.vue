@@ -50,8 +50,14 @@ definePageMeta({
 onMounted(() => {
   batch.show({ id })
   batchManagement.show({ id })
+  cleanFilter()
 
   tippy(iconFilter.value!, { content: 'Limpar filtro' })
+})
+
+onUnmounted(() => {
+  batchManagement.pending = 0
+  batchManagement.done = 0
 })
 
 function filter(status: string) {

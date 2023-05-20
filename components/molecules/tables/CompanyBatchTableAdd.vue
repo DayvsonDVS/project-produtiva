@@ -78,8 +78,7 @@ function removeCompany(companies: Company[], company: Company) {
 
 <style scoped lang="scss">
 .company-batch-table-add {
-  [type='checkbox'] {
-    cursor: pointer;
-  }
+  max-height: 600px;
+  overflow-y: auto;
 }
 </style>

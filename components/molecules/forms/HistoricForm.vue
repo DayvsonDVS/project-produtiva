@@ -10,6 +10,7 @@
       name="historic"
       placeholder="Descreva o histórico"
       as="textarea"
+      :disabled="batch.batch.status === 'done'"
     />
 
     <Field label="Status" name="status" as="radio-group">
@@ -29,6 +30,7 @@
 
     <Field
       label="Comprovante de envio"
+      :disabled="batch.batch.status === 'done'"
       name="receipt"
       :placeholder="batchManagement.getCompany?.receipt || 'Procurar arquivo'"
       as="file"
@@ -36,7 +38,10 @@
       <img src="@/svg/Clip.svg" />
     </Field>
 
-    <Button type="submit" :disabled="form.loading">
+    <Button
+      type="submit"
+      :disabled="form.loading || batch.batch.status === 'done'"
+    >
       Atualizar Histórico
     </Button>
   </Form>
@@ -46,9 +51,11 @@
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useBatchManagement } from '@/stores/batchManagement'
+import { useBatch } from '@/stores/batch'
 import tippy from 'tippy.js'
 
 const batchManagement = useBatchManagement()
+const batch = useBatch()
 const hasError = useState(() => false)
 const router = useRouter()
 const showLog = ref<boolean>(false)
@@ -115,6 +122,10 @@ function openLog() {
       gap: 1rem;
       width: 460px;
     }
+  }
+  .disabled {
+    pointer-events: none;
+    opacity: 0.3;
   }
   .field {
     :deep(span) {
