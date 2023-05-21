@@ -33,7 +33,7 @@ function exit() {
     top: 0;
     width: 100%;
     padding: 10px;
-    height: 250px;
+    height: 150px;
     display: grid;
     justify-content: end;
     img {
@@ -43,6 +43,10 @@ function exit() {
   }
   .main {
     min-height: calc(100vh - 5rem);
+    min-width: 900px;
+    display: grid;
+    justify-items: center;
+    align-content: center;
   }
 }
 </style>

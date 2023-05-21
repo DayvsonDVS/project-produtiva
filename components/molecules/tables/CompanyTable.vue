@@ -40,6 +40,7 @@ async function destroy(id: ICopany['id']) {
 <style lang="scss">
 .company-table {
   max-height: 600px;
+  width: 900px;
   overflow-y: auto;
   .table {
     min-width: 800px;

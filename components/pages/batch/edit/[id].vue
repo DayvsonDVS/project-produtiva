@@ -36,5 +36,7 @@ definePageMeta({
 .batch-edit {
   display: grid;
   gap: 1rem;
+  max-width: 900px;
+  justify-content: center;
 }
 </style>

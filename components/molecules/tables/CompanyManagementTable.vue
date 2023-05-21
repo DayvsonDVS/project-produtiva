@@ -68,6 +68,7 @@ function openFile(url: string) {
 <style lang="scss">
 .company-management-table {
   max-height: 600px;
+  width: 900px;
   overflow-y: auto;
   .table {
     min-width: 800px;

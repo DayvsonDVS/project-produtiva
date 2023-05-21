@@ -79,6 +79,7 @@ function removeCompany(companies: Company[], company: Company) {
 <style scoped lang="scss">
 .company-batch-table-add {
   max-height: 600px;
+  max-width: 900px;
   overflow-y: auto;
 }
 </style>

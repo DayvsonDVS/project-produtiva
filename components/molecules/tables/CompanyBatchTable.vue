@@ -34,3 +34,11 @@ function removeCompany(id: number) {
   batchManagement.batchManagements = newList
 }
 </script>
+
+<style scoped lang="scss">
+.company-batch-table {
+  max-height: 600px;
+  overflow-y: auto;
+  max-width: 900px;
+}
+</style>
