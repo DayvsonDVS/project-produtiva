@@ -1,7 +1,12 @@
 <template>
   <div class="batch-table">
     <Table :columns="['ID', 'LOTE', 'STATUS', 'AÇÃO']" striped>
-      <Row v-for="{ id, name, status } in batch.filteredBatch" :uid="id">
+      <Row
+        v-for="{ id, name, status } in batch.filteredBatch.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )"
+        :uid="id"
+      >
         <Column>{{ id }} </Column>
         <Column>{{ name }} </Column>
         <Column>

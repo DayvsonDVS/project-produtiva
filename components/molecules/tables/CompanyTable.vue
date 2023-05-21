@@ -2,7 +2,14 @@
   <div class="company-table">
     <Table :columns="['ID', 'EMPRESA', 'CNPJ', 'CONTRATO', 'AÇÃO']" striped>
       <Row
-        v-for="{ id, name, cnpj, contract_date } in company.filteredCompanies"
+        v-for="{
+          id,
+          name,
+          cnpj,
+          contract_date
+        } in company.filteredCompanies.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )"
         :uid="id"
       >
         <Column>{{ id }} </Column>

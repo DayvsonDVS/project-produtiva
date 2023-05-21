@@ -4,6 +4,17 @@
 
     <div class="location-company">
       <span>{{ batchManagement.getCompany?.name }}</span>
+      <br />
+      <span v-if="batchManagement.getCompany?.cnpj"
+        >CNPJ: {{ batchManagement.getCompany?.cnpj }}</span
+      >
+      <span v-if="batchManagement.getCompany?.cpf"
+        >CPF: {{ batchManagement.getCompany?.cpf }}</span
+      >
+    </div>
+
+    <div class="alert" v-if="company.company.alert !== ''">
+      <span>{{ company.company.alert }}</span>
     </div>
 
     <HistoricForm />
@@ -12,9 +23,11 @@
 
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManagement'
+import { useCompany } from '@/stores/company'
 
 const router = useRouter()
 const batchManagement = useBatchManagement()
+const company = useCompany()
 </script>
 
 <style scoped lang="scss">
@@ -24,6 +37,12 @@ const batchManagement = useBatchManagement()
   justify-content: center;
   color: #ced1db;
   gap: 2rem;
+
+  .alert {
+    color: blue;
+    font-weight: 800;
+    font-size: 20px;
+  }
   .location-company {
     display: grid;
     justify-self: center;
@@ -32,6 +51,7 @@ const batchManagement = useBatchManagement()
     padding: 1rem;
     border-radius: 12px;
     border: solid #018ffb;
+    justify-items: center;
   }
 }
 </style>

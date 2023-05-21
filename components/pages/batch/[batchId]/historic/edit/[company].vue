@@ -4,13 +4,18 @@
 
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManagement'
+import { useCompany } from '@/stores/company'
 
 const route = useRoute()
 const batchManagement = useBatchManagement()
 
+const company = useCompany()
+
 onMounted(() => {
   batchManagement.show({ id: Number(route.params.batchId) })
   batchManagement.idCompany = Number(route.params.company)
+
+  company.show({ id: batchManagement.idCompany })
 })
 
 definePageMeta({

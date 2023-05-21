@@ -8,8 +8,14 @@
           cnpj,
           contract_date,
           created_at,
-          updated_at
-        } in companies.filterBatchCompanies"
+          updated_at,
+          status,
+          validity_pcmso,
+          alert,
+          cpf
+        } in companies.filterBatchCompanies.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )"
         :uid="id"
       >
         <Column>{{ id }} </Column>
@@ -24,7 +30,11 @@
                 cnpj: cnpj,
                 contract_date,
                 created_at,
-                updated_at
+                updated_at,
+                status,
+                validity_pcmso,
+                alert,
+                cpf
               })
             "
             >+</Button

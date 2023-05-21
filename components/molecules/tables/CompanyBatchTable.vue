@@ -2,7 +2,13 @@
   <div class="company-batch-table">
     <Table :columns="['ID', 'EMPRESA', 'CNPJ', 'AÇÃO']" striped>
       <Row
-        v-for="{ company_id, name, cnpj } in batchManagement.batchManagements"
+        v-for="{
+          company_id,
+          name,
+          cnpj
+        } in batchManagement.batchManagements.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )"
         :uid="company_id"
       >
         <Column>{{ company_id }} </Column>

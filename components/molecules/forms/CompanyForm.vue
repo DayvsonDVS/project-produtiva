@@ -6,7 +6,12 @@
       placeholder="Descreva a razão social"
     />
 
-    <div class="input-column">
+    <Field name="status" as="radio-group">
+      <span as="radio-item" value="active" checked>Ativa</span>
+      <span as="radio-item" value="inactive">Inativa</span>
+    </Field>
+
+    <div class="input-unique">
       <Field
         label="CNPJ"
         name="cnpj"
@@ -15,12 +20,35 @@
       />
 
       <Field
+        label="CPF"
+        name="cpf"
+        placeholder="000.000.000-00"
+        mask="999.999.999-99"
+      />
+    </div>
+
+    <div class="field-date">
+      <Field
         label="Data do Contrato"
         name="contract_date"
         placeholder="00/00/0000"
         mask="99/99/9999"
       />
+
+      <Field
+        label="Data do PCMSO"
+        name="validity_pcmso"
+        placeholder="00/00/0000"
+        mask="99/99/9999"
+      />
     </div>
+
+    <Field
+      label="Alerta"
+      name="alert"
+      placeholder="Descreva o alerta"
+      as="textarea"
+    />
 
     <Button type="submit" :disabled="form.loading"> Cadastrar </Button>
   </Form>
@@ -38,8 +66,12 @@ const companyStore = useCompany()
 
 const form = darpi.newForm({
   name: darpi.string().required(),
-  cnpj: darpi.string().required().minLength(18, 'Mínimo de 18 caracteres'),
-  contract_date: darpi.string().required().minLength(10, 'Data incorreta')
+  status: darpi.string().required(),
+  cnpj: darpi.string().minLength(18, 'Mínimo de 18 caracteres'),
+  cpf: darpi.string().cpf().minLength(14, 'Mínimo de 14 caracteres'),
+  validity_pcmso: darpi.string().required(),
+  contract_date: darpi.string().required().minLength(10, 'Data incorreta'),
+  alert: darpi.string()
 })
 
 async function send() {
@@ -47,17 +79,35 @@ async function send() {
     form.loading = true
     hasError.value = false
 
-    if (!useValidateCNPJ(form.values.all.cnpj)) {
-      alert('CNPJ inválido')
-    } else if (useValidateDate(form.values.all.contract_date.toString())) {
-      alert('Data incorreta')
+    if (form.values.all.cnpj === null && form.values.all.cpf === null) {
+      alert('Deve ser informado o CNPJ ou CPF')
     } else {
-      await companyStore.create(form.values.all)
-
-      navigateTo('/company/')
+      if (form.values.all.cnpj) {
+        if (!useValidateCNPJ(form.values.all.cnpj!)) {
+          alert('CNPJ inválido')
+        }
+      } else if (useValidateDate(form.values.all.contract_date.toString())) {
+        alert('Data do contrato inválida')
+      } else if (useValidateDate(form.values.all.validity_pcmso.toString())) {
+        alert('Data do PCMSO inválida')
+      } else {
+        if (form.values.all.cnpj === '') {
+          await companyStore.createCompanyCNPJ({
+            contract_date: form.values.all.contract_date,
+            name: form.values.all.name,
+            status: form.values.all.status,
+            validity_pcmso: form.values.all.validity_pcmso,
+            alert: form.values.all.alert
+          })
+        } else {
+          await companyStore.create(form.values.all)
+        }
+        navigateTo('/company/')
+      }
     }
   } catch {
     hasError.value = true
+    alert('Cadastro já existe')
   } finally {
     form.loading = false
   }
@@ -74,7 +124,7 @@ async function send() {
       width: 500px;
     }
   }
-  .input-column {
+  .input-unique {
     display: grid;
     grid-auto-flow: column;
     :deep(:nth-child(1)) {
@@ -88,12 +138,18 @@ async function send() {
       }
     }
   }
+  .field-date {
+    display: grid;
+    grid-auto-flow: column;
+    :deep(.input-container) {
+      width: 120px;
+    }
+  }
   .field {
     :deep(span) {
       font-size: 18px;
     }
     :deep(.input-container) {
-      background: #1c2029;
       border-radius: 12px;
       color: #838692;
     }

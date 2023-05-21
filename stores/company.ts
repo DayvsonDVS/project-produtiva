@@ -25,9 +25,14 @@ export const useCompany = defineStore('company', {
         (company) => company.company_id
       )
 
-      return state.companies.filter(
-        (company) => !listBatchCompanies.includes(company.id)
-      )
+      return state.companies.filter((company) => {
+        if (
+          !listBatchCompanies.includes(company.id) &&
+          company.status !== 'inactive'
+        ) {
+          return company
+        }
+      })
     }
   },
   actions: {
@@ -41,7 +46,16 @@ export const useCompany = defineStore('company', {
         method: 'get'
       })
     },
-    async create(payload: Omit<Company, 'id'>) {
+    async create(payload: Omit<Company, 'id' | 'created_at' | 'updated_at'>) {
+      const { id } = await useRequest('/companies', {
+        method: 'post',
+        body: payload
+      })
+      return id as number
+    },
+    async createCompanyCNPJ(
+      payload: Omit<Company, 'id' | 'created_at' | 'updated_at' | 'cnpj'>
+    ) {
       const { id } = await useRequest('/companies', {
         method: 'post',
         body: payload
@@ -52,11 +66,24 @@ export const useCompany = defineStore('company', {
       this.company = (await useRequest(`/companies/${payload.id}`, {
         method: 'get'
       })) as Company
-      if (this.company.contract_date === null) {
-        this.company.contract_date = ''
+
+      if (this.company.cpf === null) {
+        this.company.cpf = ''
+      }
+      if (this.company.cnpj === null) {
+        this.company.cnpj = ''
       }
     },
-    async update(payload: Omit<Company, 'id'>) {
+    async update(payload: Omit<Company, 'id' | 'created_at' | 'updated_at'>) {
+      const { id } = await useRequest(`/companies/${this.company.id}`, {
+        method: 'put',
+        body: payload
+      })
+      return id as number
+    },
+    async updateCompanyCPF(
+      payload: Omit<Company, 'id' | 'created_at' | 'updated_at' | 'cpf'>
+    ) {
       const { id } = await useRequest(`/companies/${this.company.id}`, {
         method: 'put',
         body: payload

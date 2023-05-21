@@ -35,14 +35,16 @@ export const useBatch = defineStore('batch', {
       const listBatchManagement = [] as BatchManagementCompanies[]
 
       companies.companies.map((company) => {
-        listBatchManagement.push({
-          id: undefined,
-          batch_id: id,
-          company_id: company.id,
-          historic: '',
-          receipt: '',
-          status: 'pending'
-        })
+        if (company.status != 'inactive') {
+          listBatchManagement.push({
+            id: undefined,
+            batch_id: id,
+            company_id: company.id,
+            historic: '',
+            receipt: '',
+            status: 'pending'
+          })
+        }
       })
 
       await useRequest('/batchManagement', {

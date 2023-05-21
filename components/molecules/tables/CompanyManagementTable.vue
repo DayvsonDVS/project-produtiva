@@ -12,7 +12,9 @@
           cnpj,
           status,
           receipt
-        } in batchManagement.filterCompany"
+        } in batchManagement.filterCompany.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        )"
         :uid="company_id"
       >
         <Column>{{ company_id }} </Column>

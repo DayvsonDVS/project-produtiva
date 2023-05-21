@@ -47,6 +47,17 @@ function exit() {
     display: grid;
     justify-items: center;
     align-content: center;
+    padding-top: 22px;
+    background: rgb(2, 106, 136);
+    background: radial-gradient(
+      circle,
+      rgba(2, 106, 136, 1) 37%,
+      rgba(25, 26, 28, 1) 100%
+    );
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
   }
 }
 </style>
