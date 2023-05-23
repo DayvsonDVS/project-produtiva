@@ -11,6 +11,10 @@ onMounted(() => {
   company.fetchCompanies()
 })
 
+onUnmounted(() => {
+  company.searchable = ''
+})
+
 definePageMeta({
   middleware: ['guest', 'guest-admin']
 })

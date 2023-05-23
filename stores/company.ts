@@ -53,15 +53,6 @@ export const useCompany = defineStore('company', {
       })
       return id as number
     },
-    async createCompanyCNPJ(
-      payload: Omit<Company, 'id' | 'created_at' | 'updated_at' | 'cnpj'>
-    ) {
-      const { id } = await useRequest('/companies', {
-        method: 'post',
-        body: payload
-      })
-      return id as number
-    },
     async show(payload: Pick<Company, 'id'>) {
       this.company = (await useRequest(`/companies/${payload.id}`, {
         method: 'get'
@@ -82,8 +73,19 @@ export const useCompany = defineStore('company', {
       return id as number
     },
     async updateCompanyCPF(
-      payload: Omit<Company, 'id' | 'created_at' | 'updated_at' | 'cpf'>
+      payload: Omit<Company, 'id' | 'created_at' | 'updated_at'>
     ) {
+      payload.cpf = null
+      const { id } = await useRequest(`/companies/${this.company.id}`, {
+        method: 'put',
+        body: payload
+      })
+      return id as number
+    },
+    async updateCompanyCNPJ(
+      payload: Omit<Company, 'id' | 'created_at' | 'updated_at'>
+    ) {
+      payload.cnpj = null
       const { id } = await useRequest(`/companies/${this.company.id}`, {
         method: 'put',
         body: payload

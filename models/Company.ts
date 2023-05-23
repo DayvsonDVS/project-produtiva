@@ -2,8 +2,8 @@ export interface Company {
   id: number
   name: string
   status: string
-  cnpj?: string
-  cpf?: string
+  cnpj?: string | null
+  cpf?: string | null
   validity_pcmso: string
   contract_date: string
   alert?: string

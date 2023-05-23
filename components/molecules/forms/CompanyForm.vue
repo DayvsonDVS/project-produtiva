@@ -69,7 +69,7 @@ const form = darpi.newForm({
   status: darpi.string().required(),
   cnpj: darpi.string().minLength(18, 'Mínimo de 18 caracteres'),
   cpf: darpi.string().cpf().minLength(14, 'Mínimo de 14 caracteres'),
-  validity_pcmso: darpi.string().required(),
+  validity_pcmso: darpi.string().required().minLength(10, 'Data incorreta'),
   contract_date: darpi.string().required().minLength(10, 'Data incorreta'),
   alert: darpi.string()
 })
@@ -86,22 +86,18 @@ async function send() {
         if (!useValidateCNPJ(form.values.all.cnpj!)) {
           alert('CNPJ inválido')
         }
-      } else if (useValidateDate(form.values.all.contract_date.toString())) {
+      }
+      if (useValidateDate(form.values.all.contract_date.toString())) {
         alert('Data do contrato inválida')
-      } else if (useValidateDate(form.values.all.validity_pcmso.toString())) {
+      }
+      if (useValidateDate(form.values.all.validity_pcmso.toString())) {
         alert('Data do PCMSO inválida')
-      } else {
-        if (form.values.all.cnpj === '') {
-          await companyStore.createCompanyCNPJ({
-            contract_date: form.values.all.contract_date,
-            name: form.values.all.name,
-            status: form.values.all.status,
-            validity_pcmso: form.values.all.validity_pcmso,
-            alert: form.values.all.alert
-          })
-        } else {
-          await companyStore.create(form.values.all)
-        }
+      }
+      if (
+        !useValidateDate(form.values.all.contract_date.toString()) &&
+        !useValidateDate(form.values.all.validity_pcmso.toString())
+      ) {
+        await companyStore.create(form.values.all)
         navigateTo('/company/')
       }
     }

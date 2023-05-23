@@ -1,6 +1,6 @@
 <template>
   <div class="historic-template">
-    <Header title="Editar Histórico" @click="router.go(-1)" />
+    <Header title="Editar Histórico" />
 
     <div class="location-company">
       <span>{{ batchManagement.getCompany?.name }}</span>
@@ -25,7 +25,6 @@
 import { useBatchManagement } from '@/stores/batchManagement'
 import { useCompany } from '@/stores/company'
 
-const router = useRouter()
 const batchManagement = useBatchManagement()
 const company = useCompany()
 </script>

@@ -94,21 +94,35 @@ async function send() {
       }
       if (useValidateDate(form.values.all.validity_pcmso.toString())) {
         alert('Data do PCMSO inválida')
-      } else {
-        if (form.values.all.cpf === '') {
-          await companyStore.updateCompanyCPF({
-            contract_date: form.values.all.contract_date,
-            name: form.values.all.name,
-            status: form.values.all.status,
-            validity_pcmso: form.values.all.validity_pcmso,
-            alert: form.values.all.alert,
-            cnpj: form.values.all.cnpj
-          })
-        } else {
+      }
+      if (
+        !useValidateDate(form.values.all.contract_date.toString()) &&
+        !useValidateDate(form.values.all.validity_pcmso.toString())
+      ) {
+        if (
+          form.values.all.cnpj &&
+          form.values.all.cpf &&
+          useValidateCNPJ(form.values.all.cnpj)
+        ) {
           await companyStore.update(form.values.all)
+          navigateTo('/company/')
+        } else {
+          if (
+            form.values.all.cnpj !== '' &&
+            useValidateCNPJ(form.values.all.cnpj!)
+          ) {
+            await companyStore.updateCompanyCPF(form.values.all)
+            navigateTo('/company/')
+          }
+          if (
+            (form.values.all.cpf !== '' &&
+              useValidateCNPJ(form.values.all.cnpj!)) ||
+            form.values.all.cnpj === ''
+          ) {
+            await companyStore.updateCompanyCNPJ(form.values.all)
+            navigateTo('/company/')
+          }
         }
-
-        navigateTo('/company/')
       }
     }
   } catch {

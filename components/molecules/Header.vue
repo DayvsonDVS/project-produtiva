@@ -2,7 +2,12 @@
   <div class="header">
     <h2>{{ title }}</h2>
 
-    <img src="@/svg/Close-Button.svg" @click="navigateTo(`${route}`)" />
+    <img
+      src="@/svg/Close-Button.svg"
+      @click="
+        prop.route !== undefined ? navigateTo(`${prop.route}`) : router.go(-1)
+      "
+    />
   </div>
 </template>
 
@@ -12,7 +17,8 @@ interface Props {
   route?: string
 }
 
-defineProps<Props>()
+const prop = defineProps<Props>()
+const router = useRouter()
 </script>
 
 <style scoped lang="scss">
