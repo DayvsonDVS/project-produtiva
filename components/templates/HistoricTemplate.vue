@@ -13,6 +13,13 @@
       >
     </div>
 
+    <div
+      v-show="hasPassedOneYear(batchManagement.getCompany?.validity_pcmso!)"
+      class="notification"
+    >
+      <img src="@/svg/Exclamation-triangle.svg" ref="exclamation" />
+    </div>
+
     <div class="alert" v-if="company.company.alert !== ''">
       <span>{{ company.company.alert }}</span>
     </div>
@@ -24,9 +31,15 @@
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManagement'
 import { useCompany } from '@/stores/company'
+import tippy from 'tippy.js'
 
 const batchManagement = useBatchManagement()
 const company = useCompany()
+const exclamation = ref<HTMLElement>()
+
+onMounted(() => {
+  tippy(exclamation.value!, { content: 'Programa Vencido' })
+})
 </script>
 
 <style scoped lang="scss">
@@ -36,11 +49,17 @@ const company = useCompany()
   justify-content: center;
   color: #ced1db;
   gap: 2rem;
-
   .alert {
     color: blue;
     font-weight: 800;
     font-size: 20px;
+  }
+  .notification {
+    display: grid;
+    justify-content: end;
+    img {
+      width: 25px;
+    }
   }
   .location-company {
     display: grid;

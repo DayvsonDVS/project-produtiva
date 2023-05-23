@@ -62,7 +62,6 @@ async function destroy(id: IBatch['id']) {
     display: grid;
     grid-auto-flow: column;
     gap: 1rem;
-    justify-content: space-between;
   }
   .table {
     width: 900px;

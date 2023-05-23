@@ -1,6 +1,6 @@
 <template>
   <div class="management">
-    <Header title="Gerencimanto de Lotes" route="/" />
+    <Header title="Gerenciamanto de Lotes" route="/" />
 
     <div class="location-lote">
       <span>{{ batch.batch.name }}</span>

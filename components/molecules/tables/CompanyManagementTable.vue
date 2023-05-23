@@ -11,14 +11,17 @@
           name,
           cnpj,
           status,
-          receipt
+          receipt,
+          validity_pcmso
         } in batchManagement.filterCompany.sort((a, b) =>
           a.name.localeCompare(b.name)
         )"
         :uid="company_id"
       >
         <Column>{{ company_id }} </Column>
-        <Column>{{ name }} </Column>
+        <Column :class="[hasPassedOneYear(validity_pcmso) ? 'vanquished' : '']"
+          >{{ name }}
+        </Column>
         <Column>{{ cnpj }} </Column>
 
         <div class="status">

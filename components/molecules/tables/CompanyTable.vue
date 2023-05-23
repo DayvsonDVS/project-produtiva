@@ -6,14 +6,19 @@
           id,
           name,
           cnpj,
-          contract_date
+          contract_date,
+          validity_pcmso
         } in company.filteredCompanies.sort((a, b) =>
           a.name.localeCompare(b.name)
         )"
         :uid="id"
       >
         <Column>{{ id }} </Column>
-        <Column>{{ name }} </Column>
+
+        <Column :class="[hasPassedOneYear(validity_pcmso) ? 'vanquished' : '']"
+          >{{ name }}
+        </Column>
+
         <Column>{{ cnpj }} </Column>
         <Column>{{ contract_date }} </Column>
 
@@ -62,6 +67,9 @@ async function destroy(id: ICopany['id']) {
         display: grid;
         grid-auto-flow: column;
         gap: 1rem;
+      }
+      :nth-child(3) {
+        white-space: nowrap;
       }
     }
   }

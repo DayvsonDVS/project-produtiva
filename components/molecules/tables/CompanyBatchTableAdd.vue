@@ -41,7 +41,9 @@
           >
         </Column>
 
-        <Column>{{ name }} </Column>
+        <Column :class="[hasPassedOneYear(validity_pcmso) ? 'vanquished' : '']"
+          >{{ name }}
+        </Column>
         <Column>{{ cnpj }} </Column>
       </Row>
     </Table>
@@ -73,7 +75,8 @@ function addCompany(company: Company) {
     updated_at: '',
     user: '',
     id: undefined,
-    cpf: company.cpf
+    cpf: company.cpf,
+    validity_pcmso: company.validity_pcmso
   })
   removeCompany(companies.companies, company)
 }

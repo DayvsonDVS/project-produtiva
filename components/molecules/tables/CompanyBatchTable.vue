@@ -5,14 +5,17 @@
         v-for="{
           company_id,
           name,
-          cnpj
+          cnpj,
+          validity_pcmso
         } in batchManagement.batchManagements.sort((a, b) =>
           a.name.localeCompare(b.name)
         )"
         :uid="company_id"
       >
         <Column>{{ company_id }} </Column>
-        <Column>{{ name }} </Column>
+        <Column :class="[hasPassedOneYear(validity_pcmso) ? 'vanquished' : '']"
+          >{{ name }}
+        </Column>
         <Column>{{ cnpj }} </Column>
 
         <Column>
