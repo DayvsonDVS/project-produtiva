@@ -1,6 +1,7 @@
 <template>
   <div class="layout">
-    <div class="logout">
+    <div class="home">
+      <img src="@/svg/House-up.svg" ref="home" @click="navigateTo('/')" />
       <img src="@/svg/Box-arrow-right.svg" ref="logout" @click="exit()" />
     </div>
 
@@ -14,9 +15,13 @@
 import tippy from 'tippy.js'
 
 const logout = ref<HTMLElement>()
+const home = ref<HTMLElement>()
 
 onMounted(() => {
   tippy(logout.value!, { content: 'Sair' })
+  tippy(home.value!, {
+    content: 'Página inícial'
+  })
 })
 
 function exit() {
@@ -28,14 +33,15 @@ function exit() {
 <style lang="scss">
 .layout {
   min-height: 100vh;
-  .logout {
+  .home {
     position: relative;
     top: 0;
     width: 100%;
     padding: 10px;
     height: 150px;
     display: grid;
-    justify-content: end;
+    grid-auto-flow: column;
+    justify-content: space-between;
     img {
       width: 40px;
       cursor: pointer;
@@ -46,7 +52,7 @@ function exit() {
     min-width: 900px;
     display: grid;
     justify-items: center;
-    align-content: center;
+    align-content: baseline;
     padding-top: 22px;
     background: rgb(2, 106, 136);
     background: radial-gradient(

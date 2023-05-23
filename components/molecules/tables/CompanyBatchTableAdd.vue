@@ -72,7 +72,8 @@ function addCompany(company: Company) {
     status: '',
     updated_at: '',
     user: '',
-    id: undefined
+    id: undefined,
+    cpf: company.cpf
   })
   removeCompany(companies.companies, company)
 }
@@ -91,5 +92,10 @@ function removeCompany(companies: Company[], company: Company) {
   max-height: 600px;
   max-width: 900px;
   overflow-y: auto;
+  :deep(.table .tbody tr th) {
+    &:nth-child(2) {
+      white-space: nowrap;
+    }
+  }
 }
 </style>

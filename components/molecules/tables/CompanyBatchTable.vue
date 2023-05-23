@@ -46,5 +46,10 @@ function removeCompany(id: number) {
   max-height: 600px;
   overflow-y: auto;
   max-width: 900px;
+  :deep(.table .tbody tr th) {
+    &:nth-child(3) {
+      white-space: nowrap;
+    }
+  }
 }
 </style>

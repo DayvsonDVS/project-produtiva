@@ -102,6 +102,9 @@ function openFile(url: string) {
             gap: 0.5rem;
           }
         }
+        &:nth-child(3) {
+          white-space: nowrap;
+        }
       }
     }
   }
