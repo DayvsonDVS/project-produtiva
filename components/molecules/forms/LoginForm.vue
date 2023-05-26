@@ -6,7 +6,7 @@
     <span v-show="hasError" class="validator"> E-mail e senha inválidos' </span>
 
     <Button type="submit" :disabled="form.loading">
-      <img src="@/svg/Right-Arrow.svg" /> Entrar
+      <img src="/svg/Right-Arrow.svg" /> Entrar
     </Button>
   </Form>
 </template>

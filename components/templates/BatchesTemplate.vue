@@ -9,7 +9,7 @@
       <Form :form="form">
         <Field name="searchable" placeholder="Pesquisar lote">
           <template v-slot:prepend>
-            <img src="@/svg/magnifier.svg" />
+            <img src="/svg/magnifier.svg" />
           </template>
         </Field>
       </Form>

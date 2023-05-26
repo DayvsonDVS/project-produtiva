@@ -17,7 +17,7 @@
       v-show="hasPassedOneYear(batchManagement.getCompany?.validity_pcmso!)"
       class="notification"
     >
-      <img src="@/svg/Exclamation-triangle.svg" ref="exclamation" />
+      <img src="/svg/Exclamation-triangle.svg" ref="exclamation" />
     </div>
 
     <div class="alert" v-if="company.company.alert !== ''">

@@ -1,8 +1,8 @@
 <template>
   <div class="layout">
     <div class="home">
-      <img src="@/svg/House-up.svg" ref="home" @click="navigateTo('/')" />
-      <img src="@/svg/Box-arrow-right.svg" ref="logout" @click="exit()" />
+      <img src="/svg/House-up.svg" ref="home" @click="navigateTo('/')" />
+      <img src="/svg/Box-arrow-right.svg" ref="logout" @click="exit()" />
     </div>
 
     <div class="main">

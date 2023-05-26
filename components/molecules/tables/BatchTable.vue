@@ -12,8 +12,8 @@
         <Column>
           <div class="status">
             {{ status == 'done' ? 'Concluído' : 'Pendente' }}
-            <img v-if="status == 'pending'" src="@/svg/X-red.svg" />
-            <img v-if="status == 'done'" src="@/svg/V-check.svg" />
+            <img v-if="status == 'pending'" src="/svg/X-red.svg" />
+            <img v-if="status == 'done'" src="/svg/V-check.svg" />
           </div>
         </Column>
         <Column>

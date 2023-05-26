@@ -9,7 +9,7 @@
 
       <Field name="searchable" placeholder="Pesquisar serviço">
         <template v-slot:prepend>
-          <img src="@/svg/magnifier.svg" />
+          <img src="/svg/magnifier.svg" />
         </template>
       </Field>
     </Form>
