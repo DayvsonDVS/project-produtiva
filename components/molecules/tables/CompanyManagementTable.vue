@@ -27,19 +27,19 @@
         <div class="status">
           <Column v-if="status === 'pending'">
             <span>Pendente</span>
-            <img src="/svg/X-red.svg" />
+            <img src="@/svg/X-red.svg" />
           </Column>
 
           <Column v-if="status === 'done'">
             <span>Concluído</span>
-            <img src="/svg/V-check.svg" />
+            <img src="@/svg/V-check.svg" />
           </Column>
         </div>
 
         <Column>
           <div class="attachments">
             <Tag v-if="receipt" @click="openFile(receipt)">
-              <img src="/svg/Image.svg" />
+              <img src="@/svg/Image.svg" />
               <span>Arquivo</span>
             </Tag>
           </div>

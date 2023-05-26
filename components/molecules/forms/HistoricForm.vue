@@ -35,7 +35,7 @@
       :placeholder="batchManagement.getCompany?.receipt || 'Procurar arquivo'"
       as="file"
     >
-      <img src="/svg/Clip.svg" />
+      <img src="@/svg/Clip.svg" />
     </Field>
 
     <Button

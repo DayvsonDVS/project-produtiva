@@ -3,7 +3,7 @@
     <div class="lamp-input">
       <Field label="Lote" name="name" placeholder="Descreva o nome do lote" />
 
-      <img src="/svg/lightbulb.svg" ref="lamp" @click="autoFilling()" />
+      <img src="@/svg/lightbulb.svg" ref="lamp" @click="autoFilling()" />
     </div>
 
     <Field name="status" as="radio-group">

@@ -7,12 +7,12 @@
     </div>
 
     <div class="clean-filter" ref="iconFilter">
-      <img src="/svg/Arrow-repeat.svg" @click="cleanFilter()" />
+      <img src="@/svg/Arrow-repeat.svg" @click="cleanFilter()" />
     </div>
 
     <div class="overview-card">
       <div class="card">
-        <img src="/svg/Graphic-green.svg" @click="filter('done')" />
+        <img src="@/svg/Graphic-green.svg" @click="filter('done')" />
         <div>
           <span>{{ batchManagement.done }}</span>
           Concluídas
@@ -20,7 +20,7 @@
       </div>
 
       <div class="card">
-        <img src="/svg/Graphic-red.svg" @click="filter('pending')" />
+        <img src="@/svg/Graphic-red.svg" @click="filter('pending')" />
         <div>
           <span>{{ batchManagement.pending }}</span>
           Pendentes
