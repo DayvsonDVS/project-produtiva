@@ -1,3 +1,5 @@
+import { server } from 'process'
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
@@ -6,6 +8,7 @@ export default defineNuxtConfig({
       title: 'Produtiva XML'
     }
   },
+  appConfig: { nuxt: { port: '1010' } },
   css: [
     'normalize.css',
     '@cataline.io/darpi/dist/style.css',
