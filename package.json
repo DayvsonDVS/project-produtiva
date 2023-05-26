@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --port=5678",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
-    "preview": "cross-env PORT=8001 node .output/server/index.mjs"
+    "preview": "cross-env PORT=21080 node .output/server/index.mjs"
   },
   "devDependencies": {
     "nuxt": "^3.3.3"
