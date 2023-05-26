@@ -3,7 +3,7 @@
     <h2>{{ title }}</h2>
 
     <img
-      src="@/svg/Close-Button.svg"
+      src="/svg/Close-Button.svg"
       @click="
         prop.route !== undefined ? navigateTo(`${prop.route}`) : router.go(-1)
       "
