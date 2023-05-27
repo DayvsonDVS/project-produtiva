@@ -1,12 +1,10 @@
 {
-  "type": "module",
   "name": "nuxt-app",
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port=21080",
     "generate": "nuxt generate",
-    "postinstall": "nuxt prepare",
     "preview": "cross-env PORT=21080 node .output/server/index.mjs"
   },
   "devDependencies": {
