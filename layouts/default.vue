@@ -20,7 +20,7 @@ const home = ref<HTMLElement>()
 onMounted(() => {
   tippy(logout.value!, { content: 'Sair' })
   tippy(home.value!, {
-    content: 'Página inícial'
+    content: 'Página inicial'
   })
 })
 
