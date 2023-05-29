@@ -11,6 +11,10 @@
       <span v-if="batchManagement.getCompany?.cpf"
         >CPF: {{ batchManagement.getCompany?.cpf }}</span
       >
+      <br />
+      <span v-if="batchManagement.getCompany?.contract_date"
+        >Contrato: {{ batchManagement.getCompany?.contract_date }}</span
+      >
     </div>
 
     <div

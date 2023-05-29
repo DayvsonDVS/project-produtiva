@@ -76,6 +76,7 @@ function addCompany(company: Company) {
     user: '',
     id: undefined,
     cpf: company.cpf,
+    contract_date: company.contract_date,
     validity_pcmso: company.validity_pcmso
   })
   removeCompany(companies.companies, company)
