@@ -1,7 +1,18 @@
 export function hasPassedOneYear(date: string): boolean {
-  const newDate = new Date(date)
-  const currentDate = new Date()
-  const oneYearInMillis = 365 * 24 * 60 * 60 * 1000
+  if (date === undefined) {
+    return false
+  } else {
+    const newDate = convertToBrazilianDateObject(date)
+    const currentDate = new Date()
 
-  return currentDate.getTime() - newDate.getTime() >= oneYearInMillis
+    return currentDate >= newDate
+  }
+}
+function convertToBrazilianDateObject(dateString: string) {
+  const [day, month, year] = dateString.split('/')
+  const formattedDateString = `${month}/${day}/${year}`
+
+  const date = new Date(formattedDateString)
+
+  return date
 }

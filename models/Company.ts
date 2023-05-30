@@ -7,6 +7,8 @@ export interface Company {
   validity_pcmso: string
   contract_date: string
   alert?: string
+  email: string
+  contact: string
   created_at: string
   updated_at: string
 }

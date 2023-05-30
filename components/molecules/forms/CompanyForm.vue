@@ -43,6 +43,23 @@
       />
     </div>
 
+    <div class="field-contact">
+      <Field
+        label="E-mail"
+        name="email"
+        placeholder="Digite o e-mail"
+        class="email"
+      />
+
+      <Field
+        label="Telefone"
+        name="contact"
+        placeholder="(00) 00000-0000"
+        mask="(99) 99999-9999"
+        class="telefone"
+      />
+    </div>
+
     <Field
       label="Alerta"
       name="alert"
@@ -71,7 +88,9 @@ const form = darpi.newForm({
   cpf: darpi.string().cpf().minLength(14, 'Mínimo de 14 caracteres'),
   validity_pcmso: darpi.string().required().minLength(10, 'Data incorreta'),
   contract_date: darpi.string().required().minLength(10, 'Data incorreta'),
-  alert: darpi.string()
+  alert: darpi.string(),
+  email: darpi.string().email().required(),
+  contact: darpi.string().required()
 })
 
 async function send() {
@@ -114,10 +133,10 @@ async function send() {
 .company-form {
   display: grid;
   gap: 2rem;
-  max-width: 600px;
+  max-width: 700px;
   :deep(:nth-child(1)) {
     .input-container {
-      width: 500px;
+      width: 700px;
     }
   }
   .input-unique {
@@ -139,6 +158,22 @@ async function send() {
     grid-auto-flow: column;
     :deep(.input-container) {
       width: 120px;
+    }
+  }
+  .field-contact {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 1rem;
+    :deep(.input-container) {
+      width: 300px;
+    }
+    :deep(.field) {
+      .email {
+        max-width: 400px;
+      }
+      .telefone {
+        width: 150px;
+      }
     }
   }
   .field {

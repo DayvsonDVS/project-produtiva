@@ -9,6 +9,8 @@ export interface BatchManagement {
   cpf: Company['cpf']
   contract_date: Company['contract_date']
   validity_pcmso: Company['validity_pcmso']
+  email: Company['email']
+  contact: Company['contact']
   user: string
   created_at: string
   updated_at: string

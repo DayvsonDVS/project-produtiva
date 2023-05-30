@@ -15,6 +15,14 @@
       <span v-if="batchManagement.getCompany?.contract_date"
         >Contrato: {{ batchManagement.getCompany?.contract_date }}</span
       >
+      <br />
+      <span v-if="batchManagement.getCompany?.email"
+        >E-mail: {{ batchManagement.getCompany?.email }}</span
+      >
+      <br />
+      <span v-if="batchManagement.getCompany?.contact"
+        >Telefone: {{ batchManagement.getCompany?.contact }}</span
+      >
     </div>
 
     <div

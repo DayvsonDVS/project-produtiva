@@ -12,7 +12,9 @@
           status,
           validity_pcmso,
           alert,
-          cpf
+          cpf,
+          contact,
+          email
         } in companies.filterBatchCompanies.sort((a, b) =>
           a.name.localeCompare(b.name)
         )"
@@ -34,7 +36,9 @@
                 status,
                 validity_pcmso,
                 alert,
-                cpf
+                cpf,
+                contact,
+                email
               })
             "
             >+</Button
@@ -77,6 +81,8 @@ function addCompany(company: Company) {
     id: undefined,
     cpf: company.cpf,
     contract_date: company.contract_date,
+    contact: company.contact,
+    email: company.email,
     validity_pcmso: company.validity_pcmso
   })
   removeCompany(companies.companies, company)

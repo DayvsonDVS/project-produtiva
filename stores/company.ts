@@ -64,6 +64,12 @@ export const useCompany = defineStore('company', {
       if (this.company.cnpj === null) {
         this.company.cnpj = ''
       }
+      if (this.company.email === null) {
+        this.company.email = ''
+      }
+      if (this.company.contact === null) {
+        this.company.contact = ''
+      }
     },
     async update(payload: Omit<Company, 'id' | 'created_at' | 'updated_at'>) {
       const { id } = await useRequest(`/companies/${this.company.id}`, {
