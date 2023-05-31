@@ -10,7 +10,9 @@ export const useCompany = defineStore('company', {
     searchable: '',
     batchCompanies: [] as BatchManagement[],
     filterContract: '',
-    filterPcmso: ''
+    filterPcmso: '',
+    dayFilter: 0,
+    sumFilter: 0
   }),
   getters: {
     filteredCompanies: (state) => {
@@ -41,16 +43,29 @@ export const useCompany = defineStore('company', {
 
       if (state.filterContract === 'Contract') {
         return state.companies.filter(({ contract_date }) => {
-          const date = convertToBrazilianDateObject(contract_date)
-          if (hasPassedOneYear(date)) {
+          const expirationDate = convertToBrazilianDateObject(contract_date)
+
+          //Check if a year has passed
+          expirationDate.setFullYear(expirationDate.getFullYear() + 1)
+          expirationDate.setDate(expirationDate.getDate() - state.dayFilter)
+
+          if (currentDate > expirationDate) {
+            state.sumFilter++
             return contract_date
           }
         })
       }
       if (state.filterPcmso === 'Pcmso') {
         return state.companies.filter(({ validity_pcmso }) => {
-          const date = convertToBrazilianDateObject(validity_pcmso)
-          return date < currentDate
+          const expirationDate = convertToBrazilianDateObject(validity_pcmso)
+
+          //check if a data has passed
+          expirationDate.setDate(expirationDate.getDate() - state.dayFilter)
+
+          if (currentDate > expirationDate) {
+            state.sumFilter++
+            return validity_pcmso
+          }
         })
       } else {
         return state.companies
