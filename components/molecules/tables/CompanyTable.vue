@@ -15,7 +15,7 @@
       >
         <Column>{{ id }} </Column>
 
-        <Column :class="[hasPassedOneYear(validity_pcmso) ? 'vanquished' : '']"
+        <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
           >{{ name }}
         </Column>
 

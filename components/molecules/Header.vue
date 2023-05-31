@@ -2,6 +2,8 @@
   <div class="header">
     <h2>{{ title }}</h2>
 
+    <slot />
+
     <img
       src="/svg/Close-Button.svg"
       @click="

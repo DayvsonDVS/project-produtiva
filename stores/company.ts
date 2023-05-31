@@ -8,7 +8,9 @@ export const useCompany = defineStore('company', {
     companies: [] as Company[],
     company: {} as Company,
     searchable: '',
-    batchCompanies: [] as BatchManagement[]
+    batchCompanies: [] as BatchManagement[],
+    filterContract: '',
+    filterPcmso: ''
   }),
   getters: {
     filteredCompanies: (state) => {
@@ -33,6 +35,26 @@ export const useCompany = defineStore('company', {
           return company
         }
       })
+    },
+    filterExpirationControl: (state) => {
+      const currentDate = new Date()
+
+      if (state.filterContract === 'Contract') {
+        return state.companies.filter(({ contract_date }) => {
+          const date = convertToBrazilianDateObject(contract_date)
+          if (hasPassedOneYear(date)) {
+            return contract_date
+          }
+        })
+      }
+      if (state.filterPcmso === 'Pcmso') {
+        return state.companies.filter(({ validity_pcmso }) => {
+          const date = convertToBrazilianDateObject(validity_pcmso)
+          return date < currentDate
+        })
+      } else {
+        return state.companies
+      }
     }
   },
   actions: {

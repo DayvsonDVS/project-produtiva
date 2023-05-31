@@ -26,7 +26,7 @@
     </div>
 
     <div
-      v-show="hasPassedOneYear(batchManagement.getCompany?.validity_pcmso!)"
+      v-show="passedCurrentDate(batchManagement.getCompany?.validity_pcmso!)"
       class="notification"
     >
       <img src="/svg/Exclamation-triangle.svg" ref="exclamation" />
