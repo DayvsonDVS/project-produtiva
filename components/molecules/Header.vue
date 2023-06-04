@@ -28,6 +28,7 @@ const router = useRouter()
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
+  align-items: center;
   color: #ced1db;
   img {
     cursor: pointer;

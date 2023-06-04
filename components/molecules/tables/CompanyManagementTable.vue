@@ -97,14 +97,6 @@ function openFile(url: string) {
         }
       }
       th {
-        .attachments {
-          div {
-            display: grid;
-            grid-auto-flow: column;
-            justify-content: center;
-            gap: 0.5rem;
-          }
-        }
         &:nth-child(3) {
           white-space: nowrap;
         }

@@ -1,6 +1,9 @@
 <template>
   <div class="company-table">
-    <Table :columns="['ID', 'EMPRESA', 'CNPJ', 'CONTRATO', 'AÇÃO']" striped>
+    <Table
+      :columns="['ID', 'LOG', 'EMPRESA', 'CNPJ', 'CONTRATO', 'AÇÃO']"
+      striped
+    >
       <Row
         v-for="{
           id,
@@ -14,6 +17,13 @@
         :uid="id"
       >
         <Column>{{ id }} </Column>
+
+        <Column class="log"
+          ><img
+            src="/svg/Journal-text.svg"
+            @click="navigateTo(`/company/log/${id}`)"
+          />
+        </Column>
 
         <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
           >{{ name }}
@@ -63,12 +73,18 @@ async function destroy(id: ICopany['id']) {
       }
     }
     tbody tr {
+      .log {
+        img {
+          cursor: pointer;
+          width: 22px;
+        }
+      }
       :nth-last-child(1) {
         display: grid;
         grid-auto-flow: column;
         gap: 1rem;
       }
-      :nth-child(3) {
+      :nth-child(4) {
         white-space: nowrap;
       }
     }

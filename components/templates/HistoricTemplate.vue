@@ -33,7 +33,9 @@
     </div>
 
     <div class="alert" v-if="company.company.alert !== ''">
-      <span>{{ company.company.alert }}</span>
+      <h3>
+        Alerta: <span class="alert-span">{{ company.company.alert }}</span>
+      </h3>
     </div>
 
     <HistoricForm />
@@ -62,9 +64,10 @@ onMounted(() => {
   color: #ced1db;
   gap: 2rem;
   .alert {
-    color: blue;
-    font-weight: 800;
-    font-size: 20px;
+    color: #ff9900;
+    .alert-span {
+      color: #0000cc;
+    }
   }
   .notification {
     display: grid;
