@@ -17,19 +17,24 @@
           </div>
         </Column>
         <Column>
-          <Button
-            color="primary"
-            v-if="profile === 'admin'"
-            @click="navigateTo(`/batch/edit/${id}`)"
-            >Editar</Button
-          >
-          <Button color="success" @click="navigateTo(`/batch/${id}`)"
-            >Gerenciar</Button
-          >
+          <div class="action">
+            <Button
+              color="primary"
+              v-if="profile === 'admin'"
+              @click="navigateTo(`/batch/edit/${id}`)"
+              >Editar</Button
+            >
+            <Button color="success" @click="navigateTo(`/batch/${id}`)"
+              >Gerenciar</Button
+            >
 
-          <Button color="danger" v-if="profile === 'admin'" @click="destroy(id)"
-            >Excluir</Button
-          >
+            <Button
+              color="danger"
+              v-if="profile === 'admin'"
+              @click="destroy(id)"
+              >Excluir</Button
+            >
+          </div>
         </Column>
       </Row>
     </Table>
@@ -73,7 +78,7 @@ async function destroy(id: IBatch['id']) {
     }
   }
   :deep(.table) tbody tr {
-    :nth-last-child(1) {
+    .action {
       display: grid;
       grid-auto-flow: column;
       gap: 0.5rem;

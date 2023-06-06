@@ -1,4 +1,3 @@
-7
 <template>
   <div
     class="history-flow"

@@ -1,7 +1,7 @@
 <template>
   <div class="company-table">
     <Table
-      :columns="['ID', 'LOG', 'EMPRESA', 'CNPJ', 'CONTRATO', 'AÇÃO']"
+      :columns="['ID', 'LOG', 'CHECK', 'EMPRESA', 'CNPJ', 'CONTRATO', 'AÇÃO']"
       striped
     >
       <Row
@@ -10,7 +10,8 @@
           name,
           cnpj,
           contract_date,
-          validity_pcmso
+          validity_pcmso,
+          scheduling
         } in company.filteredCompanies.sort((a, b) =>
           a.name.localeCompare(b.name)
         )"
@@ -25,6 +26,14 @@
           />
         </Column>
 
+        <Column class="toggles">
+          <img
+            src="/svg/Toggles.svg"
+            @click="navigateTo(`/company/check/${id}`)"
+            :class="[scheduling !== 'yes' ? 'is-not-scheduled' : '']"
+          />
+        </Column>
+
         <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
           >{{ name }}
         </Column>
@@ -33,10 +42,12 @@
         <Column>{{ contract_date }} </Column>
 
         <Column>
-          <Button color="primary" @click="navigateTo(`/company/edit/${id}`)"
-            >Editar</Button
-          >
-          <Button color="danger" @click="destroy(id)">Excluir</Button>
+          <div class="action">
+            <Button color="primary" @click="navigateTo(`/company/edit/${id}`)"
+              >Editar</Button
+            >
+            <Button color="danger" @click="destroy(id)">Excluir</Button>
+          </div>
         </Column>
       </Row>
     </Table>
@@ -73,18 +84,27 @@ async function destroy(id: ICopany['id']) {
       }
     }
     tbody tr {
+      border-radius: 50px;
       .log {
+        text-align: -webkit-center;
         img {
           cursor: pointer;
           width: 22px;
         }
       }
-      :nth-last-child(1) {
+      .toggles {
+        text-align: -webkit-center;
+        img {
+          cursor: pointer;
+          width: 22px;
+        }
+      }
+      .action {
         display: grid;
         grid-auto-flow: column;
         gap: 1rem;
       }
-      :nth-child(4) {
+      :nth-child(5) {
         white-space: nowrap;
       }
     }

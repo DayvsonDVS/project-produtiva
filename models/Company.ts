@@ -8,7 +8,13 @@ export interface Company {
   contract_date: string
   alert?: string
   email: string
-  contact: string
+  contact?: string
+  signed_contract?: string
+  scheduling?: string
   created_at: string
   updated_at: string
+}
+export interface parametersCompany {
+  signed_contract: string
+  scheduling: string
 }

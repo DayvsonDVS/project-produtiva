@@ -90,7 +90,7 @@ const form = darpi.newForm({
   contract_date: darpi.string().required().minLength(10, 'Data incorreta'),
   alert: darpi.string(),
   email: darpi.string().email().required(),
-  contact: darpi.string().required()
+  contact: darpi.string()
 })
 
 async function send() {

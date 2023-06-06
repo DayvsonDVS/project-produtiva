@@ -67,6 +67,10 @@ function exit() {
     .vanquished {
       color: #ffcc00;
     }
+    .is-not-scheduled {
+      background: red;
+      border-radius: 4px;
+    }
   }
 }
 </style>

@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
-import { Company } from '@/models/Company'
+import { Company, parametersCompany } from '@/models/Company'
 import { BatchManagement } from '@/models/BatchManagement'
 
 export const useCompany = defineStore('company', {
   state: () => ({
     companies: [] as Company[],
     company: {} as Company,
+    parameters: {} as parametersCompany,
     searchable: '',
     batchCompanies: [] as BatchManagement[],
     filterContract: '',
@@ -107,8 +108,29 @@ export const useCompany = defineStore('company', {
       if (this.company.contact === null) {
         this.company.contact = ''
       }
+      if (this.company.scheduling === null) {
+        this.company.scheduling = 'no'
+      }
+      if (this.company.signed_contract === null) {
+        this.company.signed_contract = 'no'
+      }
+
+      const object = await useRequest(`/companies/${payload.id}`, {
+        method: 'get'
+      })
+      this.parameters = {
+        scheduling: object.scheduling ? object.scheduling : 'no',
+        signed_contract: object.signed_contract ? object.signed_contract : 'no'
+      }
     },
     async update(payload: Omit<Company, 'id' | 'created_at' | 'updated_at'>) {
+      const { id } = await useRequest(`/companies/${this.company.id}`, {
+        method: 'put',
+        body: payload
+      })
+      return id as number
+    },
+    async updateParameters(payload: parametersCompany) {
       const { id } = await useRequest(`/companies/${this.company.id}`, {
         method: 'put',
         body: payload
