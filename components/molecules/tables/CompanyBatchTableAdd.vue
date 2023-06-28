@@ -100,7 +100,7 @@ function removeCompany(companies: Company[], company: Company) {
 <style scoped lang="scss">
 .company-batch-table-add {
   max-height: 600px;
-  max-width: 900px;
+  max-width: 990px;
   overflow-y: auto;
   :deep(.table .tbody tr th) {
     &:nth-child(2) {

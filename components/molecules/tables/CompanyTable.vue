@@ -1,7 +1,17 @@
 <template>
   <div class="company-table">
     <Table
-      :columns="['ID', 'LOG', 'CHECK', 'EMPRESA', 'CNPJ', 'CONTRATO', 'AÇÃO']"
+      filter
+      :columns="[
+        'ID',
+        'LOG',
+        'CHECK',
+        'STATUS',
+        'EMPRESA',
+        'CNPJ',
+        'CONTRATO',
+        'AÇÃO'
+      ]"
       striped
     >
       <Row
@@ -11,7 +21,8 @@
           cnpj,
           contract_date,
           validity_pcmso,
-          scheduling
+          scheduling,
+          status
         } in company.filteredCompanies.sort((a, b) =>
           a.name.localeCompare(b.name)
         )"
@@ -32,6 +43,10 @@
             @click="navigateTo(`/company/check/${id}`)"
             :class="[scheduling !== 'yes' ? 'is-not-scheduled' : '']"
           />
+        </Column>
+
+        <Column>
+          {{ status.charAt(0).toUpperCase() + status.slice(1).toLowerCase() }}
         </Column>
 
         <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
@@ -73,14 +88,13 @@ async function destroy(id: ICopany['id']) {
 <style lang="scss">
 .company-table {
   max-height: 600px;
-  width: 900px;
+  width: 990px;
   overflow-y: auto;
   .table {
     min-width: 800px;
     thead tr {
       :nth-last-child(1) {
-        display: grid;
-        justify-content: center;
+        padding-left: 58px;
       }
     }
     tbody tr {
@@ -104,7 +118,7 @@ async function destroy(id: ICopany['id']) {
         grid-auto-flow: column;
         gap: 1rem;
       }
-      :nth-child(5) {
+      :nth-child(6) {
         white-space: nowrap;
       }
     }

@@ -1,6 +1,10 @@
 <template>
   <div class="company-expiration-control">
-    <Table :columns="['ID', 'EMPRESA', 'CNPJ', 'CONTRATO', 'PCMSO']" striped>
+    <Table
+      filter
+      :columns="['ID', 'EMPRESA', 'CNPJ', 'CONTRATO', 'PCMSO']"
+      striped
+    >
       <Row
         v-for="{
           id,
@@ -35,7 +39,7 @@ const company = useCompany()
 <style lang="scss">
 .company-expiration-control {
   max-height: 600px;
-  width: 900px;
+  width: 990px;
   overflow-y: auto;
   .table {
     min-width: 800px;

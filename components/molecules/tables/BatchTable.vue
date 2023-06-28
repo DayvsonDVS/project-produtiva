@@ -61,7 +61,7 @@ async function destroy(id: IBatch['id']) {
 <style scoped lang="scss">
 .batch-table {
   max-height: 600px;
-  width: 900px;
+  width: 990px;
   overflow-y: auto;
   .status {
     display: grid;
@@ -69,7 +69,7 @@ async function destroy(id: IBatch['id']) {
     gap: 1rem;
   }
   .table {
-    width: 900px;
+    width: 990px;
   }
   :deep(.table) thead tr {
     :nth-last-child(1) {

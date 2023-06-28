@@ -14,15 +14,14 @@
     "@adonisjs/bodyparser": "^8.1.7",
     "@adonisjs/core": "github:adonisjs/core",
     "@cataline.io/darpi": "^1.1.11",
-    "@google-cloud/storage": "^6.10.0",
     "@pinia/nuxt": "^0.4.8",
-    "bumi-components-new": "^0.0.16",
+    "bumi-components-new": "^0.0.27",
     "date-fns": "^2.29.3",
     "mitt": "^3.0.0",
     "normalize.css": "^8.0.1",
     "ohmyfetch": "^0.4.21",
     "pinia": "^2.0.34",
-    "sass": "^1.61.0",
+    "sass": "^1.63.6",
     "tippy.js": "^6.3.7"
   }
 }

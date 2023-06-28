@@ -2,6 +2,13 @@
   <div class="layout">
     <div class="home">
       <img src="/svg/House-up.svg" ref="home" @click="navigateTo('/')" />
+
+      <img
+        src="/svg/Person-gear.svg"
+        ref="users"
+        @click="navigateTo('/users')"
+      />
+
       <img src="/svg/Box-arrow-right.svg" ref="logout" @click="exit()" />
     </div>
 
@@ -14,14 +21,16 @@
 <script setup lang="ts">
 import tippy from 'tippy.js'
 
-const logout = ref<HTMLElement>()
 const home = ref<HTMLElement>()
+const users = ref<HTMLElement>()
+const logout = ref<HTMLElement>()
 
 onMounted(() => {
   tippy(logout.value!, { content: 'Sair' })
   tippy(home.value!, {
     content: 'Página inicial'
   })
+  tippy(users.value!, { content: 'Usuários' })
 })
 
 function exit() {

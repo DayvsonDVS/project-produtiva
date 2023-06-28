@@ -48,7 +48,7 @@ function removeCompany(id: number) {
 .company-batch-table {
   max-height: 600px;
   overflow-y: auto;
-  max-width: 900px;
+  max-width: 990px;
   :deep(.table .tbody tr th) {
     &:nth-child(3) {
       white-space: nowrap;

@@ -31,6 +31,14 @@ Build the application for production:
 
 ```bash
 npm run build
+
+```
+
+to start the server on the specified port use the command:
+
+```bash
+pm2 start ecosystem.config.js --env qa
+
 ```
 
 Locally preview production build:
