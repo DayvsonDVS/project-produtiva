@@ -4,9 +4,10 @@
       <img src="/svg/House-up.svg" ref="home" @click="navigateTo('/')" />
 
       <img
+        v-show="useCookie('token').value"
         src="/svg/Person-gear.svg"
         ref="users"
-        @click="navigateTo('/users')"
+        @click="navigateTo('/user')"
       />
 
       <img src="/svg/Box-arrow-right.svg" ref="logout" @click="exit()" />

@@ -38,11 +38,20 @@ export const useUser = defineStore('user', {
       })) as User
     },
     async update(payload: Omit<User, 'id'>) {
-      const { id } = await useRequest(`/logins/${this.user.id}`, {
-        method: 'put',
-        body: payload
-      })
-      return id as number
+      if (payload.password !== null) {
+        const { id } = await useRequest(`/logins/${this.user.id}`, {
+          method: 'put',
+          body: payload
+        })
+        return id as number
+      } else {
+        const { password, ...newPayload } = payload
+        const { id } = await useRequest(`/logins/${this.user.id}`, {
+          method: 'put',
+          body: newPayload
+        })
+        return id as number
+      }
     },
     async destroy(id: User['id']) {
       await useRequest(`/logins/${id}`, {

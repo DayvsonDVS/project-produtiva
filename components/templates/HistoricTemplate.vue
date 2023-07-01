@@ -64,6 +64,7 @@ onMounted(() => {
   color: #ced1db;
   gap: 2rem;
   .alert {
+    max-width: 600px;
     color: #ff9900;
     .alert-span {
       color: #0000cc;
