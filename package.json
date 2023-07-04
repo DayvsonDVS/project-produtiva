@@ -15,7 +15,7 @@
     "@adonisjs/core": "github:adonisjs/core",
     "@cataline.io/darpi": "^1.1.11",
     "@pinia/nuxt": "^0.4.8",
-    "bumi-components-new": "^0.0.31",
+    "bumi-components-new": "^0.0.32",
     "date-fns": "^2.29.3",
     "mitt": "^3.0.0",
     "normalize.css": "^8.0.1",
