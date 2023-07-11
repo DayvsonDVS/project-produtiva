@@ -6,6 +6,19 @@
       <span>{{ batch.batch.name }}</span>
     </div>
 
+    <div ref="productionCard" class="yey-overview">
+      <img
+        ref="iconEye"
+        :src="activeOverview ? '/svg/Eye.svg' : '/svg/Eye-slash.svg'"
+        @click="isActive()"
+      />
+      <div v-if="activeOverview" class="overview-production">
+        <h2>Produção</h2>
+
+        <ProductionTable />
+      </div>
+    </div>
+
     <div class="clean-filter" ref="iconFilter">
       <img src="/svg/Arrow-repeat.svg" @click="cleanFilter()" />
     </div>
@@ -40,8 +53,11 @@ import tippy from 'tippy.js'
 const batch = useBatch()
 const batchManagement = useBatchManagement()
 const iconFilter = ref<HTMLElement>()
+const productionCard = ref<HTMLElement>()
 const route = useRoute()
 const id = Number(route.params.batchId)
+const activeOverview = ref<boolean>(false)
+const iconEye = ref<HTMLElement>()
 
 definePageMeta({
   middleware: 'guest'
@@ -53,11 +69,16 @@ onMounted(() => {
   cleanFilter()
 
   tippy(iconFilter.value!, { content: 'Limpar filtro' })
+  tippy(iconEye.value!, { content: 'Visualizar Produção' })
 })
 
 onUnmounted(() => {
   batchManagement.pending = 0
   batchManagement.done = 0
+})
+
+onOutsideClick(productionCard, () => {
+  activeOverview.value = false
 })
 
 function filter(status: string) {
@@ -66,6 +87,10 @@ function filter(status: string) {
 
 function cleanFilter() {
   batchManagement.statusCompany = 'all'
+}
+
+function isActive() {
+  activeOverview.value = !activeOverview.value
 }
 </script>
 
@@ -84,6 +109,41 @@ function cleanFilter() {
     padding: 1rem;
     border-radius: 12px;
     border: solid #018ffb;
+  }
+  .yey-overview {
+    width: 10px;
+    img {
+      cursor: pointer;
+      width: 28px;
+    }
+  }
+  .overview-production {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 450px;
+    min-height: 450px;
+    z-index: 10;
+    border-radius: 5%;
+    padding: 18px 10px 18px;
+    display: grid;
+    grid-template-rows: max-content;
+    justify-items: center;
+    align-items: center;
+    background: rgb(2, 106, 136);
+    background: radial-gradient(
+      circle,
+      rgba(2, 106, 136, 1) 37%,
+      rgba(25, 26, 28, 1) 130%
+    );
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border-radius: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.18);
+    h2 {
+      color: #fff;
+    }
   }
   .clean-filter {
     display: flex;

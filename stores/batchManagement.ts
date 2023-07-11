@@ -27,6 +27,22 @@ export const useBatchManagement = defineStore('BatchManagement', {
         })
       }
       return state.batchManagements
+    },
+    filterProduction: (state) => {
+      const distinctUsers: { user: string; total: number }[] = []
+      const undefinedUserString = 'Vazio'
+
+      state.batchManagements.forEach((user) => {
+        const username = user.user !== null ? user.user : undefinedUserString
+        const existingUser = distinctUsers.find((u) => u.user === username)
+        if (existingUser) {
+          existingUser.total++
+        } else {
+          distinctUsers.push({ user: username, total: 1 })
+        }
+      })
+
+      return distinctUsers.sort((a, b) => a.user.localeCompare(b.user))
     }
   },
 
