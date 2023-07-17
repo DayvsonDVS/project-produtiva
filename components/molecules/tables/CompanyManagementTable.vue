@@ -13,7 +13,8 @@
           status,
           receipt,
           validity_pcmso,
-          user
+          user,
+          edit_user
         } in batchManagement.filterCompany.sort((a, b) =>
           a.name.localeCompare(b.name)
         )"
@@ -29,7 +30,15 @@
         <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
           >{{ name }}
         </Column>
-        <Column>{{ cnpj }} </Column>
+
+        <Column
+          >{{ cnpj }}
+          <img
+            v-if="edit_user !== null"
+            src="/svg/Pencil.svg"
+            @click="viewEditor(edit_user)"
+          />
+        </Column>
 
         <div class="status">
           <Column v-if="status === 'pending'">
@@ -55,7 +64,7 @@
         <Column>
           <Button
             @click="
-              navigateTo(`/batch/${batch_id}/historic/edit/${company_id}`)
+              editBatchManagement(batch_id, company_id, edit_user, status)
             "
           >
             Editar
@@ -67,13 +76,68 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Table, Column, Row } from 'bumi-components-new'
+import {
+  Button,
+  Table,
+  Column,
+  Row,
+  useNotifications
+} from 'bumi-components-new'
 import { useBatchManagement } from '@/stores/batchManagement'
+import { useBatch } from '@/stores/batch'
 
 const batchManagement = useBatchManagement()
+const batch = useBatch()
 
 function openFile(url: string) {
   window.open(url, '_blank')
+}
+
+async function editBatchManagement(
+  batch_id: number,
+  company_id: number,
+  edit_user: string,
+  status: string
+) {
+  batchManagement.idCompany = company_id
+  const { user } = useCookie('token').value as any
+
+  if (
+    edit_user !== null &&
+    status !== 'done' &&
+    edit_user !== user &&
+    batch.batch.status !== 'done'
+  ) {
+    const confirmation = confirm(
+      `Empresa em edição, ao continuar você irá substituir a edição do usuário, deseja realmente continuar?`
+    )
+
+    if (confirmation) {
+      await batchManagement.updateEditCompany(user)
+      navigateTo(`/batch/${batch_id}/historic/edit/${company_id}`)
+    }
+  } else if (
+    edit_user === null &&
+    status === 'pending' &&
+    batch.batch.status !== 'done'
+  ) {
+    await batchManagement.updateEditCompany(user)
+    navigateTo(`/batch/${batch_id}/historic/edit/${company_id}`)
+  } else {
+    navigateTo(`/batch/${batch_id}/historic/edit/${company_id}`)
+  }
+}
+
+function viewEditor(user: string) {
+  useNotifications({
+    title: `${user.toUpperCase()} está editando essa empresa.`,
+    color: 'warning',
+    position: 'center',
+    speed: '1s',
+    duration: 1500,
+    ignoreDuplicates: false,
+    closeOnClick: true
+  })
 }
 </script>
 
@@ -146,6 +210,12 @@ function openFile(url: string) {
         }
         &:nth-child(3) {
           white-space: nowrap;
+          img {
+            position: relative;
+            width: 18px;
+            top: 3px;
+            cursor: pointer;
+          }
         }
         .attachments {
           div {

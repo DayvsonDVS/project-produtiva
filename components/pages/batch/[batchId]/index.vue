@@ -87,6 +87,7 @@ function filter(status: string) {
 
 function cleanFilter() {
   batchManagement.statusCompany = 'all'
+  batchManagement.show({ id })
 }
 
 function isActive() {

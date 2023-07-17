@@ -79,12 +79,23 @@ export const useBatchManagement = defineStore('BatchManagement', {
       >
     ) {
       const { user } = useCookie('token').value as any
-
       const { id } = await useRequest(
         `/batchManagement/${this.getCompany?.id}`,
         {
           method: 'put',
           body: { payload, user }
+        }
+      )
+
+      return id as number
+    },
+
+    async updateEditCompany(edit_user: string | null) {
+      const { id } = await useRequest(
+        `/batchManagement/${this.getCompany?.id}`,
+        {
+          method: 'put',
+          body: { edit_user }
         }
       )
 

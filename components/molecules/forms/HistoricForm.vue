@@ -80,9 +80,11 @@ async function send() {
     hasError.value = false
 
     await batchManagement.update(form.values.all)
+    await batchManagement.updateEditCompany(null)
 
     if (form.values.all.status) {
       await batchManagement.attachReceipt(form.values.all)
+      await batchManagement.updateEditCompany(null)
     }
 
     router.go(-1)

@@ -17,6 +17,7 @@ export interface BatchManagement {
   status: string
   historic: string
   receipt: string
+  edit_user: string
   scheduling?: string
 }
 
