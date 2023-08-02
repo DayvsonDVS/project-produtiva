@@ -1,10 +1,21 @@
 <template>
   <Form class="company-form-edit" :values="company" :form="form" @submit="send">
-    <Field
-      label="Razão Social"
-      name="name"
-      placeholder="Descreva a razão social"
-    />
+    <div class="subsidiary" ref="viewSubsidiary">
+      <Field
+        label="Razão Social"
+        name="name"
+        placeholder="Descreva a razão social"
+      />
+      <img src="/svg/Buildings.svg" ref="iconSubsidiary" @click="onClick()" />
+
+      <div v-show="activeSubsidiary" class="view-subsidiary">
+        <h2>Unidade</h2>
+
+        <SubsidiaryForm />
+
+        <SubsidiaryTable />
+      </div>
+    </div>
 
     <Field name="status" as="radio-group">
       <span as="radio-item" :value="`active`" checked>Ativa</span>
@@ -75,9 +86,17 @@ import 'bumi-components-new/dist/style.css'
 import { Button } from 'bumi-components-new'
 import { Form, Field, darpi } from '@cataline.io/darpi'
 import { useCompany } from '@/stores/company'
+import { useSubsidiary } from '@/stores/subsidiary'
+import tippy from 'tippy.js'
 
 const hasError = useState(() => false)
 const companyStore = useCompany()
+const subsidiary = useSubsidiary()
+const activeSubsidiary = ref<boolean>(false)
+const viewSubsidiary = ref<HTMLElement>()
+const iconSubsidiary = ref<HTMLElement>()
+const route = useRoute()
+const company_id = Number(route.params.idCompany)
 
 const company = computed(() => {
   return companyStore.company
@@ -93,6 +112,15 @@ const form = darpi.newForm({
   alert: darpi.string(),
   email: darpi.string().email().required(),
   contact: darpi.string().required()
+})
+
+onMounted(() => {
+  tippy(iconSubsidiary.value!, { content: 'Registro de unidade' })
+  subsidiary.show({ company_id })
+})
+
+onOutsideClick(viewSubsidiary, () => {
+  activeSubsidiary.value = false
 })
 
 async function send() {
@@ -151,6 +179,9 @@ async function send() {
     form.loading = false
   }
 }
+function onClick() {
+  activeSubsidiary.value = !activeSubsidiary.value
+}
 </script>
 
 <style scoped lang="scss">
@@ -160,7 +191,43 @@ async function send() {
   max-width: 700px;
   :deep(:nth-child(1)) {
     .input-container {
-      width: 700px;
+      width: 650px;
+    }
+  }
+  .subsidiary {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1rem;
+    align-items: center;
+    img {
+      width: 36px;
+      cursor: pointer;
+    }
+    .view-subsidiary {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      gap: 2rem;
+      height: 730px;
+      z-index: 10;
+      justify-content: center;
+      border-radius: 5%;
+      padding: 18px 10px 18px;
+      background: rgb(2, 106, 136);
+      background: radial-gradient(
+        circle,
+        rgba(2, 106, 136, 1) 37%,
+        rgba(25, 26, 28, 1) 130%
+      );
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      border-radius: 10px;
+      border: 3px solid rgba(255, 255, 255, 0.18);
+      h2 {
+        text-align: -webkit-center;
+        color: #fff;
+      }
     }
   }
   .input-unique {

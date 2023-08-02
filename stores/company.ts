@@ -1,15 +1,18 @@
 import { defineStore } from 'pinia'
 import { useRequest } from '@/composables/useRequest'
 import { Company, parametersCompany } from '@/models/Company'
+import { useSubsidiary } from '@/stores/subsidiary'
+import { CompanySubsidiary } from '@/models/Subsidiary'
 import { BatchManagement } from '@/models/BatchManagement'
 
 export const useCompany = defineStore('company', {
   state: () => ({
     companies: [] as Company[],
+    companySubsidiaries: [] as CompanySubsidiary[],
     company: {} as Company,
+    batchCompanies: [] as BatchManagement[],
     parameters: {} as parametersCompany,
     searchable: '',
-    batchCompanies: [] as BatchManagement[],
     filterContract: '',
     filterPcmso: '',
     dayFilter: 0,
@@ -43,7 +46,7 @@ export const useCompany = defineStore('company', {
       const currentDate = new Date()
 
       if (state.filterContract === 'Contract') {
-        return state.companies.filter(({ contract_date }) => {
+        return state.companySubsidiaries.filter(({ contract_date }) => {
           const expirationDate = convertToBrazilianDateObject(contract_date)
 
           //Check if a year has passed
@@ -57,7 +60,7 @@ export const useCompany = defineStore('company', {
         })
       }
       if (state.filterPcmso === 'Pcmso') {
-        return state.companies.filter(({ validity_pcmso }) => {
+        return state.companySubsidiaries.filter(({ validity_pcmso }) => {
           const expirationDate = convertToBrazilianDateObject(validity_pcmso)
 
           //check if a data has passed
@@ -69,15 +72,18 @@ export const useCompany = defineStore('company', {
           }
         })
       } else {
-        return state.companies
+        return state.companySubsidiaries
       }
     }
   },
   actions: {
     async fetchCompanies() {
+      const companiesSubsidiaries = useSubsidiary()
       this.companies = (await useRequest('/companies', {
         method: 'get'
       })) as Company[]
+      await companiesSubsidiaries.fetchSubsidiaries()
+      this.companySubsidiaries = companiesSubsidiaries.companySubsidiaries
     },
     async fetchBatchCompaniesShow(payload: Pick<BatchManagement, 'id'>) {
       this.batchCompanies = await useRequest(`/batchManagement/${payload.id}`, {

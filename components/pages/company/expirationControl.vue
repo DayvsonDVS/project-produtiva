@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <CompanyExpirationControl />
+    <CompanyExpirationControlTable />
   </div>
 </template>
 

@@ -80,7 +80,13 @@ async function destroy(id: ICopany['id']) {
   const confirmation = confirm('Deseja realmente excluir?')
 
   if (confirmation) {
-    await company.destroy(id)
+    try {
+      await company.destroy(id)
+    } catch (error) {
+      alert(
+        'Existe unidade cadastrada para essa empresa, é necessário removê-las para excluir a empresa.'
+      )
+    }
   }
 }
 </script>

@@ -1,4 +1,4 @@
-export function passedCurrentDate(date: string): boolean {
+export function passedCurrentDate(date: string | undefined): boolean {
   if (date === undefined) {
     return false
   } else {
