@@ -7,7 +7,7 @@
         </template>
       </Field>
     </Form>
-
+    <span>Total de unidades: {{ subsidiary.subsidiaries.length }} </span>
     <div class="table">
       <Table :columns="['UNIDADE', 'CNPJ', 'DATA DO PCMSO', 'AÇÃO']" striped>
         <Row
@@ -79,11 +79,14 @@ async function destroy(id: number) {
   }
   .table {
     overflow-y: auto;
-    min-width: 300px;
+    width: 600px;
     max-height: 320px;
     border-radius: 12px;
     :deep(tbody)tr {
       height: 2px;
+      :nth-child(2) {
+        white-space: nowrap;
+      }
     }
   }
 }

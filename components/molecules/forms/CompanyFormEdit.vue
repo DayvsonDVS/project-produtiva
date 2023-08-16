@@ -121,6 +121,7 @@ onMounted(() => {
 
 onOutsideClick(viewSubsidiary, () => {
   activeSubsidiary.value = false
+  subsidiary.searchable = ''
 })
 
 async function send() {
