@@ -96,7 +96,7 @@ function openFile(url: string) {
 async function editBatchManagement(
   batch_id: number,
   company_id: number,
-  edit_user: string,
+  edit_user: string | undefined,
   status: string
 ) {
   batchManagement.idCompany = company_id
@@ -128,9 +128,9 @@ async function editBatchManagement(
   }
 }
 
-function viewEditor(user: string) {
+function viewEditor(user: string | undefined) {
   useNotifications({
-    title: `${user.toUpperCase()} está editando essa empresa.`,
+    title: `${user?.toUpperCase()} está editando essa empresa.`,
     color: 'warning',
     position: 'center',
     speed: '1s',

@@ -11,6 +11,7 @@ export interface BatchManagement {
   validity_pcmso: Company['validity_pcmso']
   email: Company['email']
   contact: Company['contact']
+  company_receipt: Company['receipt']
   user: string
   created_at: string
   updated_at: string

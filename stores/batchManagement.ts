@@ -11,7 +11,8 @@ export const useBatchManagement = defineStore('BatchManagement', {
     removeBatchCompanies: [] as number[],
     addBatchCompanies: [] as Company[],
     idCompany: 0,
-    statusCompany: 'all'
+    statusCompany: 'all',
+    filterReceipt: false
   }),
 
   getters: {
@@ -21,6 +22,11 @@ export const useBatchManagement = defineStore('BatchManagement', {
       })
     },
     filterCompany: (state) => {
+      if (state.filterReceipt === true) {
+        return state.batchManagements.filter(({ company_receipt }) => {
+          return company_receipt === 's'
+        })
+      }
       if (state.statusCompany !== 'all') {
         return state.batchManagements.filter(({ status }) => {
           return status === state.statusCompany

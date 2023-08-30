@@ -120,6 +120,9 @@ export const useCompany = defineStore('company', {
       if (this.company.signed_contract === null) {
         this.company.signed_contract = 'no'
       }
+      if (this.company.receipt === null) {
+        this.company.receipt = 'n'
+      }
 
       const object = await useRequest(`/companies/${payload.id}`, {
         method: 'get'

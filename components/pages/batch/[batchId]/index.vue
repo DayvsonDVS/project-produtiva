@@ -17,6 +17,12 @@
 
         <ProductionTable />
       </div>
+
+      <img
+        ref="target"
+        src="/svg/Arrows-move.svg"
+        @click="filterReceiptCompany()"
+      />
     </div>
 
     <div class="clean-filter" ref="iconFilter">
@@ -54,6 +60,7 @@ const batch = useBatch()
 const batchManagement = useBatchManagement()
 const iconFilter = ref<HTMLElement>()
 const productionCard = ref<HTMLElement>()
+const target = ref<HTMLElement>()
 const route = useRoute()
 const id = Number(route.params.batchId)
 const activeOverview = ref<boolean>(false)
@@ -66,10 +73,12 @@ definePageMeta({
 onMounted(() => {
   batch.show({ id })
   batchManagement.show({ id })
+
   cleanFilter()
 
   tippy(iconFilter.value!, { content: 'Limpar filtro' })
   tippy(iconEye.value!, { content: 'Visualizar Produção' })
+  tippy(target.value!, { content: 'Filtro envio de comprovante' })
 })
 
 onUnmounted(() => {
@@ -87,11 +96,16 @@ function filter(status: string) {
 
 function cleanFilter() {
   batchManagement.statusCompany = 'all'
+  batchManagement.filterReceipt = false
   batchManagement.show({ id })
 }
 
 function isActive() {
   activeOverview.value = !activeOverview.value
+}
+
+function filterReceiptCompany() {
+  batchManagement.filterReceipt = true
 }
 </script>
 
@@ -112,7 +126,11 @@ function isActive() {
     border: solid #018ffb;
   }
   .yey-overview {
-    width: 10px;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 12px;
     img {
       cursor: pointer;
       width: 28px;

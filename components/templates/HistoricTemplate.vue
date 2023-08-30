@@ -32,7 +32,10 @@
       <img src="/svg/Exclamation-triangle.svg" ref="exclamation" />
     </div>
 
-    <div class="alert" v-if="company.company.alert !== ''">
+    <div
+      class="alert"
+      v-if="company.company.alert !== '' && company.company.alert !== null"
+    >
       <h3>
         Alerta: <span class="alert-span">{{ company.company.alert }}</span>
       </h3>
@@ -66,6 +69,16 @@ onMounted(() => {
   .alert {
     max-width: 600px;
     color: #ff9900;
+    animation: colorChange 1s infinite;
+
+    @keyframes colorChange {
+      0% {
+        color: rgb(0, 0, 255);
+      }
+      100% {
+        color: orange;
+      }
+    }
     .alert-span {
       color: #0000cc;
     }

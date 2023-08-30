@@ -72,6 +72,16 @@
     </div>
 
     <Field
+      name="receipt"
+      label="
+    Filtro de comprovante"
+      as="radio-group"
+    >
+      <span as="radio-item" :value="`n`">Não</span>
+      <span as="radio-item" :value="`s`">Sim</span>
+    </Field>
+
+    <Field
       label="Alerta"
       name="alert"
       placeholder="Descreva o alerta"
@@ -111,7 +121,8 @@ const form = darpi.newForm({
   contract_date: darpi.string().required().minLength(10, 'Data incorreta'),
   alert: darpi.string(),
   email: darpi.string().email().required(),
-  contact: darpi.string().required()
+  contact: darpi.string().required(),
+  receipt: darpi.string().required()
 })
 
 onMounted(() => {

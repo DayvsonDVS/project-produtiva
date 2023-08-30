@@ -9,6 +9,7 @@ export interface Company {
   alert?: string
   email: string
   contact?: string
+  receipt?: string
   signed_contract?: string
   scheduling?: string
   created_at: string
