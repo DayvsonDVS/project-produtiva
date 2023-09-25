@@ -3,7 +3,7 @@
     <Table :columns="['ID', 'LOTE', 'STATUS', 'AÇÃO']" striped>
       <Row
         v-for="{ id, name, status } in batch.filteredBatch.sort((a, b) =>
-          a.name.localeCompare(b.name)
+          a.name.localeCompare(b.id.toString())
         )"
         :uid="id"
       >
