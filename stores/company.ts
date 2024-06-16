@@ -15,6 +15,8 @@ export const useCompany = defineStore('company', {
     searchable: '',
     filterContract: '',
     filterPcmso: '',
+    filterProcuration: '',
+    procuration: '',
     dayFilter: 0,
     sumFilter: 0
   }),
@@ -71,6 +73,21 @@ export const useCompany = defineStore('company', {
             return validity_pcmso
           }
         })
+      }
+      if (state.filterProcuration === 'Procuration') {
+        return state.companySubsidiaries.filter(({ procuration }) => {
+          if (procuration) {
+            const expirationDate = convertToBrazilianDateObject(procuration)
+
+            //check if a data has passed
+            expirationDate.setDate(expirationDate.getDate() - state.dayFilter)
+
+            if (currentDate > expirationDate) {
+              state.sumFilter++
+              return procuration
+            }
+          }
+        })
       } else {
         return state.companySubsidiaries
       }
@@ -119,6 +136,9 @@ export const useCompany = defineStore('company', {
       }
       if (this.company.signed_contract === null) {
         this.company.signed_contract = 'no'
+      }
+      if (this.company.procuration === null) {
+        this.company.procuration = 'no'
       }
       if (this.company.receipt === null) {
         this.company.receipt = 'n'

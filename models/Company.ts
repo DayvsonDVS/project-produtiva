@@ -6,6 +6,7 @@ export interface Company {
   cpf?: string | null
   validity_pcmso: string
   contract_date: string
+  procuration: string
   alert?: string
   email: string
   contact?: string

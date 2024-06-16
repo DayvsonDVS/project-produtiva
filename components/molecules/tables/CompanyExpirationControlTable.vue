@@ -1,29 +1,23 @@
 <template>
   <div class="company-expiration-control">
-    <Table
-      filter
-      :columns="['ID', 'EMPRESA', 'CNPJ', 'CONTRATO', 'PCMSO']"
-      striped
-    >
-      <Row
-        v-for="{
-          id,
-          name,
-          cnpj,
-          contract_date,
-          validity_pcmso
-        } in company.filterExpirationControl.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        )"
-        :uid="id"
-      >
+    <Table filter :columns="['ID', 'EMPRESA', 'CNPJ', 'CONTRATO', 'PCMSO', 'PROCURAÇÃO']" striped>
+      <Row v-for="{
+      id,
+      name,
+      cnpj,
+      contract_date,
+      validity_pcmso,
+      procuration
+    } in company.filterExpirationControl.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    )" :uid="id">
         <Column>{{ id }} </Column>
-        <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
-          >{{ name }}
+        <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']">{{ name }}
         </Column>
         <Column>{{ cnpj }} </Column>
         <Column>{{ contract_date }} </Column>
         <Column>{{ validity_pcmso }} </Column>
+        <Column>{{ procuration }} </Column>
       </Row>
     </Table>
   </div>
@@ -41,8 +35,10 @@ const company = useCompany()
   max-height: 600px;
   width: 990px;
   overflow-y: auto;
+
   .table {
     min-width: 800px;
+
     tbody tr {
       th {
         &:nth-child(3) {

@@ -8,7 +8,8 @@ export const useHistoric = defineStore('historic', {
   }),
   getters: {
     getNameCompany: (state) => {
-      return state.historic.find((company) => {
+      const sortList = state.historic.sort((a, b) => b.batch_id - a.batch_id)
+      return sortList.find((company) => {
         return company
       })
     }

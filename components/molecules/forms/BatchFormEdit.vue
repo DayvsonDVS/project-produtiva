@@ -1,10 +1,5 @@
 <template>
-  <Form
-    class="batch-form-edit"
-    :values="batchStore.batch"
-    :form="form"
-    @submit="send"
-  >
+  <Form class="batch-form-edit" :values="batchStore.batch" :form="form" @submit="send">
     <div class="lamp-input">
       <Field label="Lote" name="name" placeholder="Descreva o nome do lote" />
 
@@ -101,38 +96,45 @@ async function send() {
 .batch-form-edit {
   display: grid;
   gap: 2rem;
+
   h3 {
     display: grid;
     justify-content: center;
     color: #fff;
   }
+
   :deep(:nth-child(1)) {
     .input-container {
       width: 500px;
     }
   }
+
   .lamp-input {
     width: max-content;
     display: grid;
     grid-auto-flow: column;
     align-items: center;
     gap: 1rem;
+
     :deep(.field) {
       .input-container {
         width: max-content;
       }
     }
+
     img {
       position: relative;
       bottom: -14px;
       cursor: pointer;
       width: 25px;
+
       &:hover {
         box-shadow: inset 5px 10px 18px white;
         border-radius: 50%;
       }
     }
   }
+
   .field {
     :deep(span) {
       font-size: 18px;

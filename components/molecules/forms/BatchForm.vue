@@ -65,36 +65,43 @@ async function send() {
   display: grid;
   gap: 2rem;
   min-width: 600px;
+
   :deep(:nth-child(1)) {
     .input-container {
       width: 500px;
     }
   }
+
   .lamp-input {
     display: grid;
     grid-auto-flow: column;
     align-items: center;
     gap: 1rem;
+
     img {
       position: relative;
       bottom: -14px;
       cursor: pointer;
       width: 25px;
+
       &:hover {
         box-shadow: inset 5px 10px 18px white;
         border-radius: 50%;
       }
     }
   }
+
   .input-column {
     display: grid;
     grid-auto-flow: column;
+
     :deep(:nth-child(1)) {
       .input-container {
         width: max-content;
       }
     }
   }
+
   .field {
     :deep(span) {
       font-size: 18px;

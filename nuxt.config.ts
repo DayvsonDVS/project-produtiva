@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@cataline.io/darpi']
   },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', 'nuxt-vitest'],
   vite: {
     css: {
       preprocessorOptions: {

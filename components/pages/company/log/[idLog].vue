@@ -28,7 +28,7 @@ onMounted(() => {
 })
 
 definePageMeta({
-  middleware: ['guest', 'guest-admin']
+  middleware: ['guest']
 })
 </script>
 
@@ -36,9 +36,11 @@ definePageMeta({
 .log {
   display: grid;
   gap: 2rem;
+
   .identify-company {
     h3 {
       color: aqua;
+
       span {
         color: #fff;
         font-size: 18px;

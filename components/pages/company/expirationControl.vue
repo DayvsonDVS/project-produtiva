@@ -17,6 +17,10 @@
         PCMSO
       </Button>
 
+      <Button color="primary" :outline="true" @click="filterProcuration()">
+        Procuração
+      </Button>
+
       <div class="clean-filter" ref="iconFilter">
         <img src="/svg/Arrow-repeat.svg" @click="cleanFilter()" />
       </div>
@@ -69,11 +73,18 @@ function filterPcmso() {
   company.filterPcmso = 'Pcmso'
 }
 
+function filterProcuration() {
+  cleanFilter()
+  company.dayFilter = form.values.all.filterNumber!
+  company.filterProcuration = 'Procuration'
+}
+
 function cleanFilter() {
   company.sumFilter = 0
   company.dayFilter = 0
   company.filterPcmso = ''
   company.filterContract = ''
+  company.filterProcuration = ''
 }
 </script>
 
@@ -81,24 +92,29 @@ function cleanFilter() {
 .expiration-control {
   display: grid;
   gap: 1rem;
+
   .filter {
     display: grid;
     grid-auto-flow: column;
     justify-content: left;
     align-items: center;
     gap: 1rem;
+
     img {
       width: 25px;
       display: grid;
     }
+
     :deep(form) {
       .input-container {
         width: 80px;
       }
     }
   }
+
   .clean-filter {
     display: flex;
+
     img {
       cursor: pointer;
       width: 25px;

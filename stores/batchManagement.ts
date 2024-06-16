@@ -12,7 +12,8 @@ export const useBatchManagement = defineStore('BatchManagement', {
     addBatchCompanies: [] as Company[],
     idCompany: 0,
     statusCompany: 'all',
-    filterReceipt: false
+    filterReceipt: false,
+    filterRocket: false
   }),
 
   getters: {
@@ -27,12 +28,21 @@ export const useBatchManagement = defineStore('BatchManagement', {
           return company_receipt === 's'
         })
       }
+      if (state.filterRocket === true) {
+        const filtered = state.batchManagements.filter(({ user, status }) => {
+          return user !== null && status === 'pending'
+        })
+        const remaining = state.batchManagements.filter(({ user, status }) => {
+          return user === null || status !== 'pending'
+        })
+        return [...filtered, ...remaining]
+      }
       if (state.statusCompany !== 'all') {
         return state.batchManagements.filter(({ status }) => {
           return status === state.statusCompany
         })
       }
-      return state.batchManagements
+      return state.batchManagements.sort((a, b) => a.name.localeCompare(b.name))
     },
     filterProduction: (state) => {
       const distinctUsers: { user: string; total: number }[] = []

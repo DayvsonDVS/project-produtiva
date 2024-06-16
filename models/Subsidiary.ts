@@ -6,6 +6,7 @@ export interface Subsidiary {
   cnpj?: string
   validity_pcmso?: string
   contract_date: string
+  procuration: string
   created_at: string
   updated_at: string
 }
@@ -16,4 +17,5 @@ export interface CompanySubsidiary {
   cnpj?: string
   validity_pcmso: string
   contract_date: string
+  procuration: string
 }

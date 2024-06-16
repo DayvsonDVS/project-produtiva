@@ -1,43 +1,27 @@
 <template>
   <div class="company-management-table">
-    <Table
-      :columns="['', 'EMPRESA', 'CNPJ', 'STATUS', 'COMPROVANTE', 'AÇÃO']"
-      striped
-    >
-      <Row
-        v-for="{
-          batch_id,
-          company_id,
-          name,
-          cnpj,
-          status,
-          receipt,
-          validity_pcmso,
-          user,
-          edit_user
-        } in batchManagement.filterCompany.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        )"
-        :uid="company_id"
-      >
-        <Column
-          :class="{
-            'awaiting-completion smoke': user !== null && status === 'pending'
-          }"
-        >
+    <Table :columns="['', 'EMPRESA', 'CNPJ', 'STATUS', 'COMPROVANTE', 'AÇÃO']" striped>
+      <Row v-for="{
+      batch_id,
+      company_id,
+      name,
+      cnpj,
+      status,
+      receipt,
+      validity_pcmso,
+      user,
+      edit_user
+    } in batchManagement.filterCompany" :uid="company_id">
+        <Column :class="{
+      'awaiting-completion smoke': user !== null && status === 'pending'
+    }">
         </Column>
 
-        <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
-          >{{ name }}
+        <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']">{{ name }}
         </Column>
 
-        <Column
-          >{{ cnpj }}
-          <img
-            v-if="edit_user !== null"
-            src="/svg/Pencil.svg"
-            @click="viewEditor(edit_user)"
-          />
+        <Column>{{ cnpj }}
+          <img v-if="edit_user !== null" src="/svg/Pencil.svg" @click="viewEditor(edit_user)" />
         </Column>
 
         <div class="status">
@@ -62,11 +46,9 @@
         </Column>
 
         <Column>
-          <Button
-            @click="
-              editBatchManagement(batch_id, company_id, edit_user, status)
-            "
-          >
+          <Button @click="
+      editBatchManagement(batch_id, company_id, edit_user, status)
+      ">
             Editar
           </Button>
         </Column>
@@ -146,14 +128,17 @@ function viewEditor(user: string | undefined) {
   max-height: 600px;
   width: 990px;
   overflow-y: auto;
+
   .table {
     min-width: 800px;
+
     thead tr {
       :nth-last-child(1) {
         display: grid;
         justify-content: center;
       }
     }
+
     tbody tr {
       .status {
         th {
@@ -162,11 +147,13 @@ function viewEditor(user: string | undefined) {
           gap: 0.5rem;
           justify-content: space-between;
           align-items: center;
+
           span {
             padding: 10px 10px 10px 0px;
           }
         }
       }
+
       th {
         &.awaiting-completion::before {
           content: '';
@@ -178,6 +165,7 @@ function viewEditor(user: string | undefined) {
           background-image: url('/svg/Rocket.svg');
           background-repeat: no-repeat;
         }
+
         &.smoke::after {
           content: '';
           display: inline-block;
@@ -192,24 +180,29 @@ function viewEditor(user: string | undefined) {
           opacity: 0;
           animation: smokeAnimation 2s linear infinite;
         }
+
         @keyframes smokeAnimation {
           0% {
             opacity: 0;
             transform: translate(-50%, -50%) scale(1);
           }
+
           50% {
             opacity: 1;
             transform: translate(-50%, -50%) scale(2);
             background-color: #eb9b9b;
           }
+
           100% {
             opacity: 0;
             transform: translate(-50%, -50%) scale(1);
             background-color: #fd0505;
           }
         }
+
         &:nth-child(3) {
           white-space: nowrap;
+
           img {
             position: relative;
             width: 18px;
@@ -217,6 +210,7 @@ function viewEditor(user: string | undefined) {
             cursor: pointer;
           }
         }
+
         .attachments {
           div {
             display: grid;

@@ -9,23 +9,24 @@
     </Form>
     <span>Total de unidades: {{ subsidiary.subsidiaries.length }} </span>
     <div class="table">
-      <Table :columns="['UNIDADE', 'CNPJ', 'DATA DO PCMSO', 'AÇÃO']" striped>
-        <Row
-          v-for="{
-            id,
-            name,
-            cnpj,
-            validity_pcmso
-          } in subsidiary.filteredSubsidiaries"
-        >
+      <Table :columns="['UNIDADE', 'CNPJ', 'PCMSO', 'PROCURAÇÃO', 'AÇÃO']" striped>
+        <Row v-for="{
+      id,
+      name,
+      cnpj,
+      validity_pcmso,
+      procuration
+    } in subsidiary.filteredSubsidiaries">
           <Column> {{ name }} </Column>
 
           <Column>{{ cnpj }} </Column>
 
           <Column>{{ validity_pcmso }} </Column>
 
+          <Column>{{ procuration }} </Column>
+
           <Column>
-            <Button color="danger" @click="destroy(id)"> Remover</Button>
+            <Button color="danger" @click="destroy(id)"> X</Button>
           </Column>
         </Row>
       </Table>
@@ -64,26 +65,33 @@ async function destroy(id: number) {
   display: grid;
   gap: 1rem;
   border-radius: 12px;
+
   :deep(.search-form) {
     width: 400px;
     height: 39.64px;
+
     .field {
       width: 400px;
+
       .input-container {
         width: 400px;
+
         .prepend img {
           width: 22px;
         }
       }
     }
   }
+
   .table {
     overflow-y: auto;
     width: 600px;
     max-height: 320px;
     border-radius: 12px;
+
     :deep(tbody)tr {
       height: 2px;
+
       :nth-child(2) {
         white-space: nowrap;
       }
