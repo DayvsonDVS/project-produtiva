@@ -13,14 +13,13 @@ const batchManagement = useBatchManagement()
 const company = useCompany()
 const historic = useHistoric()
 
-
 onMounted(() => {
   batchManagement.show({ id: Number(route.params.batchId) })
   batchManagement.idCompany = Number(route.params.company)
 
   company.show({ id: batchManagement.idCompany })
+  company.fetchCompanies()
   historic.show({ company_id: Number(route.params.company) })
-
 })
 
 definePageMeta({

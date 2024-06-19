@@ -46,10 +46,12 @@
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManagement'
 import { useBatch } from '@/stores/batch'
+import { useCompany } from '@/stores/company'
 import tippy from 'tippy.js'
 
 const batch = useBatch()
 const batchManagement = useBatchManagement()
+const company = useCompany()
 const iconFilter = ref<HTMLElement>()
 const iconRocket = ref<HTMLElement>()
 const productionCard = ref<HTMLElement>()
@@ -66,6 +68,7 @@ definePageMeta({
 onMounted(() => {
   batch.show({ id })
   batchManagement.show({ id })
+  company.fetchCompanies()
 
   cleanFilter()
 

@@ -129,6 +129,12 @@ function viewEditor(user: string | undefined) {
   width: 990px;
   overflow-y: auto;
 
+  .table .tbody {
+    tr th {
+      padding: 1rem;
+    }
+  }
+
   .table {
     min-width: 800px;
 

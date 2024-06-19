@@ -38,15 +38,53 @@
 import { useBatchManagement } from '@/stores/batchManagement'
 import { useCompany } from '@/stores/company'
 import tippy from 'tippy.js'
+import { useNotifications } from 'bumi-components-new'
 
 const batchManagement = useBatchManagement()
 const company = useCompany()
 const exclamation = ref<HTMLElement>()
 const search = ref<HTMLElement>()
+const route = useRoute()
 
 onMounted(() => {
-  tippy(exclamation.value!, { content: 'Programa Vencido' })
-  tippy(search.value!, { content: 'Hitórico de envio' })
+  setTimeout(() => {
+    tippy(exclamation.value!, { content: 'Programa Vencido' })
+    tippy(search.value!, { content: 'Hitórico de envio' })
+    const procuration = expirationProcuration(Number(route.params.company).toString())
+
+    if (procuration === 'Vencida') {
+      useNotifications({
+        title: `Procuração ${procuration}`,
+        color: 'danger',
+        position: 'center',
+        duration: 2500,
+        speed: '1s',
+        ignoreDuplicates: false,
+        closeOnClick: true
+      })
+    }
+    if (parseInt(procuration) < 60) {
+      useNotifications({
+        title: `Vencimento da procuração em ${procuration} dias`,
+        color: 'danger',
+        duration: 2500,
+        speed: '1s',
+        position: 'center',
+        ignoreDuplicates: false,
+        closeOnClick: true
+      })
+    }
+
+    function expirationProcuration(idCompany: string) {
+      const companyProcuration = company.companySubsidiaries.find(({ id }) => {
+        return id.toString() === idCompany
+      })
+      return passedCountCurrentDate(companyProcuration?.procuration!)
+    }
+  }, 55);
+
+
+
 })
 </script>
 

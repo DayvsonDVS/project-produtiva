@@ -16,3 +16,24 @@ export function convertToBrazilianDateObject(dateString: string) {
 
   return date
 }
+export function passedCountCurrentDate(date: string): string {
+  if (date === null) {
+    return ''
+  } else {
+    const newDate = convertToBrazilianDateObject(date)
+    const currentDate = new Date()
+
+    if (currentDate >= newDate) {
+      return 'Vencida'
+    } else {
+      return diffDays(newDate, currentDate).toString()
+    }
+  }
+}
+
+function diffDays(date1: Date, date2: Date): number {
+  const oneDay = 24 * 60 * 60 * 1000
+  const diffInTime = Math.abs(date2.getTime() - date1.getTime())
+
+  return Math.round(diffInTime / oneDay)
+}
