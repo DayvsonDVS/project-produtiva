@@ -1,6 +1,6 @@
 <template>
-  <div class="subsidiary-form">
-    <Form :form="form">
+  <div class="subsidiary-form-edit">
+    <Form :values="subsidiary" :form="form">
       <Field label="Razão Social" name="name" placeholder="Descreva a razão social" />
 
       <div class="subitem">
@@ -14,7 +14,7 @@
           mask="99/99/9999" />
       </div>
 
-      <Button type="submit" color="primary" @click="send()" :disabled="form.loading">Cadastrar</Button>
+      <Button type="submit" color="primary" @click="send()" :disabled="form.loading">Atualizar</Button>
     </Form>
   </div>
 </template>
@@ -25,11 +25,16 @@ import { Button } from 'bumi-components-new'
 import { useSubsidiary } from '@/stores/subsidiary'
 import { useCompany } from '@/stores/company'
 
-const subsidiary = useSubsidiary()
+const subsidiaryStore = useSubsidiary()
 const company = useCompany()
 const route = useRoute()
 const router = useRouter()
 const id = Number(route.params.idCompanySubsidiary)
+const idSubsidiary = Number(route.params.idSubsidiary)
+
+const subsidiary = computed(() => {
+  return subsidiaryStore.subsidiary
+})
 
 const form = darpi.newForm({
   name: darpi.string().required(),
@@ -58,22 +63,23 @@ async function send() {
       }
       else if (!useValidateDate(form.values.all.validity_pcmso.toString())) {
 
-        await subsidiary.create({
+        await subsidiaryStore.update({
+          id: idSubsidiary,
           company_id: id,
           name: form.values.all.name,
-          cnpj: form.values.all.cnpj,
           unique_cnpj_company: id + form.values.all.cnpj,
+          cnpj: form.values.all.cnpj,
           validity_pcmso: form.values.all.validity_pcmso,
           contract_date: company.company.contract_date,
           procuration: form.values.all.procuration
         })
-        subsidiary.show({ company_id: id })
+        subsidiaryStore.show({ company_id: id })
 
         router.go(-1)
       }
     }
   } catch {
-    alert(`${form.values.all.cnpj} esse cnpj já está cadatrado`)
+    alert(`${form.values.all.cnpj} esse cnpj já está cadastrado`)
   } finally {
     form.loading = false
   }
@@ -81,7 +87,7 @@ async function send() {
 </script>
 
 <style scoped lang="scss">
-.subsidiary-form {
+.subsidiary-form-edit {
   padding-top: 20px;
   width: 600px;
 

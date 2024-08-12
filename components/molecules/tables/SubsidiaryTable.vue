@@ -25,8 +25,9 @@
 
           <Column>{{ procuration }} </Column>
 
-          <Column>
-            <Button color="danger" @click="destroy(id)"> X</Button>
+          <Column class="table__column-action">
+            <Button color="primary" @click="navigateTo(`/company/${idCompanySubsidiary}/edit/${id}`)"> Editar</Button>
+            <Button color="danger" @click="destroy(id)"> Excluir</Button>
           </Column>
         </Row>
       </Table>
@@ -41,6 +42,8 @@ import { Form, Field, darpi } from '@cataline.io/darpi'
 import { Table, Column, Row } from 'bumi-components-new'
 
 const subsidiary = useSubsidiary()
+const route = useRoute()
+const idCompanySubsidiary = Number(route.params.idCompanySubsidiary)
 
 const form = darpi.newForm({
   searchable: darpi.string().required()
@@ -85,7 +88,7 @@ async function destroy(id: number) {
 
   .table {
     overflow-y: auto;
-    width: 600px;
+    width: 900px;
     max-height: 320px;
     border-radius: 12px;
 
@@ -95,6 +98,25 @@ async function destroy(id: number) {
       :nth-child(2) {
         white-space: nowrap;
       }
+    }
+
+    :deep(thead) {
+      tr {
+        th {
+          &:last-child {
+            display: grid;
+            justify-content: center;
+          }
+        }
+      }
+
+    }
+
+    .table__column-action {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 1rem;
+
     }
   }
 }

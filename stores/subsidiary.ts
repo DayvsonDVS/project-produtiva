@@ -44,6 +44,24 @@ export const useSubsidiary = defineStore('subsidiaries', {
         }
       )) as Subsidiary[]
     },
+    async showIdSubsidiary(payload: Pick<Subsidiary, 'id'>) {
+      this.subsidiary = (await useRequest(
+        `/subsidiaries/showIdSubsidiary/${payload.id}`,
+        {
+          method: 'get'
+        }
+      )) as Subsidiary
+      if (this.subsidiary.procuration === null) {
+        this.subsidiary.procuration = ''
+      }
+    },
+    async update(payload: Omit<Subsidiary, 'created_at' | 'updated_at'>) {
+      const { id } = await useRequest(`/subsidiaries/${payload.id}`, {
+        method: 'put',
+        body: payload
+      })
+      return id as number
+    },
     async destroy(id: Subsidiary['id']) {
       await useRequest(`/subsidiaries/${id}`, {
         method: 'delete'
