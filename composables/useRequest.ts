@@ -2,7 +2,7 @@ import { $fetch } from 'ohmyfetch'
 import { useAuth } from '@/stores/auth'
 
 export const useRequest = $fetch.create({
-  baseURL: 'http://127.0.0.1:21079/api',
+  baseURL: 'http://produtiva.kinghost.net:21079/api',
   async onRequest({ options }) {
     const token = useCookie('token')
 
