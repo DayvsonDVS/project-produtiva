@@ -19,6 +19,7 @@ export interface BatchManagement {
   historic: string
   receipt: string
   edit_user?: string
+  follow: string
   scheduling?: string
 }
 
@@ -36,6 +37,7 @@ export interface CreatePayload {
   batch_id: BatchManagement['batch_id']
   company_id: BatchManagement['company_id']
   historic: BatchManagement['historic']
+  follow: string
   receipt?: File
   status: string
 }

@@ -1,27 +1,24 @@
 <template>
   <div class="company-batch-table">
-    <Table :columns="['ID', 'EMPRESA', 'CNPJ', 'AÇÃO']" striped>
-      <Row
-        v-for="{
-          company_id,
-          name,
-          cnpj,
-          validity_pcmso
-        } in batchManagement.batchManagements.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        )"
-        :uid="company_id"
-      >
+    <Table :columns="['ID', 'EMPRESA', 'CNPJ-CPF', 'AÇÃO']" striped>
+      <Row v-for="{
+        company_id,
+        name,
+        cpf,
+        cnpj,
+        validity_pcmso
+      } in batchManagement.batchManagements.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      )" :uid="company_id">
         <Column>{{ company_id }} </Column>
-        <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']"
-          >{{ name }}
+        <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']">{{ name }}
         </Column>
-        <Column>{{ cnpj }} </Column>
+
+        <Column v-if="cnpj === null">{{ cpf }} </Column>
+        <Column v-if="cpf === null">{{ cnpj }} </Column>
 
         <Column>
-          <Button color="danger" @click="removeCompany(company_id)"
-            >Remover</Button
-          >
+          <Button color="danger" @click="removeCompany(company_id)">Remover</Button>
         </Column>
       </Row>
     </Table>
@@ -49,6 +46,7 @@ function removeCompany(id: number) {
   max-height: 600px;
   overflow-y: auto;
   max-width: 990px;
+
   :deep(.table .tbody tr th) {
     &:nth-child(3) {
       white-space: nowrap;

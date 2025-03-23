@@ -6,22 +6,23 @@
       'CHECK',
       'STATUS',
       'EMPRESA',
-      'CNPJ',
+      'CNPJ-CPF',
       'CONTRATO',
       'UNIDADE',
       'AÇÃO'
     ]" striped>
       <Row v-for="{
-      id,
-      name,
-      cnpj,
-      contract_date,
-      validity_pcmso,
-      scheduling,
-      status
-    } in company.filteredCompanies.sort((a, b) =>
-      a.name.localeCompare(b.name)
-    )" :uid="id">
+        id,
+        name,
+        cnpj,
+        cpf,
+        contract_date,
+        validity_pcmso,
+        scheduling,
+        status
+      } in company.filteredCompanies.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      )" :uid="id">
         <Column>{{ id }} </Column>
 
         <Column class="log"><img src="/svg/Journal-text.svg" @click="navigateTo(`/company/log/${id}`)" />
@@ -39,7 +40,8 @@
         <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']">{{ name }}
         </Column>
 
-        <Column>{{ cnpj }} </Column>
+        <Column v-if="cnpj === null">{{ cpf }} </Column>
+        <Column v-if="cpf === null">{{ cnpj }} </Column>
         <Column>{{ contract_date }} </Column>
 
         <Column class="subsidiary"> <img src="/svg/Buildings.svg" @click="navigateTo(`/company/${id}/`)">

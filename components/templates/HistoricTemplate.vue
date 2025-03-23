@@ -26,8 +26,9 @@
       </h3>
     </div>
 
-    <div class="historic-template__search">
-      <img src="/svg/search.svg" @click="navigateTo(`/company/log/${company.company.id}`)" ref="search">
+    <div :class="['historic-template__search', { 'active': historic.getFollow }]">
+      <img :src="historic.iconSearch" @click="navigateTo(`/company/log/${company.company.id}`)" ref="search">
+      <span v-show="historic.getFollow">Existe um histórico em acompanhamento</span>
     </div>
 
     <HistoricForm />
@@ -36,11 +37,13 @@
 
 <script setup lang="ts">
 import { useBatchManagement } from '@/stores/batchManagement'
+import { useHistoric } from '@/stores/historic'
 import { useCompany } from '@/stores/company'
 import tippy from 'tippy.js'
 import { useNotifications } from 'bumi-components-new'
 
 const batchManagement = useBatchManagement()
+const historic = useHistoric()
 const company = useCompany()
 const exclamation = ref<HTMLElement>()
 const search = ref<HTMLElement>()
@@ -52,6 +55,7 @@ onMounted(() => {
     tippy(search.value!, { content: 'Hitórico de envio' })
     const procuration = expirationProcuration(Number(route.params.company).toString())
 
+    historic.idCompany = batchManagement.getCompany?.company_id!
     if (procuration === 'Vencida') {
       useNotifications({
         title: `Procuração ${procuration}`,
@@ -81,9 +85,8 @@ onMounted(() => {
       })
       return passedCountCurrentDate(companyProcuration?.procuration!)
     }
+
   }, 55);
-
-
 
 })
 </script>
@@ -139,12 +142,36 @@ onMounted(() => {
   .historic-template__search {
     padding-top: 1rem;
     display: grid;
-    justify-content: center;
+    gap: 1rem;
+    justify-items: center;
 
     img {
       color: #fff;
       cursor: pointer;
       width: 25px;
+    }
+
+    span {
+      color: #ffcc00;
+    }
+  }
+
+  @keyframes smokeAnimation {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(2);
+      background-color: #eb9b9b;
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1);
+      background-color: #fd0505;
     }
   }
 

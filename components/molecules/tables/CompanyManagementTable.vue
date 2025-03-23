@@ -1,26 +1,31 @@
 <template>
   <div class="company-management-table">
-    <Table :columns="['', 'EMPRESA', 'CNPJ', 'STATUS', 'COMPROVANTE', 'AÇÃO']" striped>
+    <Table :columns="['', 'EMPRESA', 'CNPJ-CPF', 'STATUS', 'COMPROVANTE', 'AÇÃO']" striped>
       <Row v-for="{
-      batch_id,
-      company_id,
-      name,
-      cnpj,
-      status,
-      receipt,
-      validity_pcmso,
-      user,
-      edit_user
-    } in batchManagement.filterCompany" :uid="company_id">
+        batch_id,
+        company_id,
+        name,
+        cnpj,
+        cpf,
+        status,
+        receipt,
+        validity_pcmso,
+        user,
+        edit_user
+      } in batchManagement.filterCompany" :uid="company_id">
         <Column :class="{
-      'awaiting-completion smoke': user !== null && status === 'pending'
-    }">
+          'awaiting-completion smoke': user !== null && status === 'pending'
+        }">
         </Column>
 
         <Column :class="[passedCurrentDate(validity_pcmso) ? 'vanquished' : '']">{{ name }}
         </Column>
 
-        <Column>{{ cnpj }}
+        <Column v-if="cnpj === null">{{ cpf }}
+          <img v-if="edit_user !== null" src="/svg/Pencil.svg" @click="viewEditor(edit_user)" />
+        </Column>
+
+        <Column v-if="cpf === null">{{ cnpj }}
           <img v-if="edit_user !== null" src="/svg/Pencil.svg" @click="viewEditor(edit_user)" />
         </Column>
 
@@ -47,8 +52,8 @@
 
         <Column>
           <Button @click="
-      editBatchManagement(batch_id, company_id, edit_user, status)
-      ">
+            editBatchManagement(batch_id, company_id, edit_user, status)
+            ">
             Editar
           </Button>
         </Column>

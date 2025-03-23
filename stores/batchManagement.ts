@@ -85,6 +85,11 @@ export const useBatchManagement = defineStore('BatchManagement', {
           method: 'get'
         }
       )
+      this.batchManagements.map((batch) => {
+        if (batch.follow === null) {
+          batch.follow = 'N'
+        }
+      })
       this.overview()
     },
 
@@ -102,8 +107,14 @@ export const useBatchManagement = defineStore('BatchManagement', {
           body: { payload, user }
         }
       )
-
       return id as number
+    },
+
+    async updateFollow(payload: Pick<BatchManagement, 'id' | 'follow'>) {
+      await useRequest(`/batchManagement/${payload.id}`, {
+        method: 'put',
+        body: { payload }
+      })
     },
 
     async updateEditCompany(edit_user: string | null) {
